@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.catalyst-iframe {
+    width: 65%;
+    height: 95vh;
+    float: left;
+}
+
+.notes-textbox {
+    width: 58vh;
+    height: 91vh;
+    float: right;
+}

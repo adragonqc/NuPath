@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,4 +7,23 @@ import { Component } from '@angular/core';
 })
 export class NavBarComponent {
 
+  showDropdown = false;
+
+  constructor(private elementRef: ElementRef) {}
+
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+  }
+
+  dropdownClick(event: { stopPropagation: () => void; }) {
+    event.stopPropagation();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: { target: any; }) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.showDropdown = false;
+    }
+  }
 }
+
