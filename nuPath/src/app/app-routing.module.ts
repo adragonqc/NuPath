@@ -8,6 +8,7 @@ import { LeaderboardPageComponent } from './leaderboard-page/leaderboard-page.co
 import { NearNovolandPageComponent } from './nearnovoland-page/nearnovoland-page.component';
 import { NovolandPageComponent } from './novoland-page/novoland-page.component';
 import { NulifePageComponent } from './nulife-page/nulife-page.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SocialsPageComponent } from './socials-page/socials-page.component';
 
 const routes: Routes = [
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'nearnovoland', component: NearNovolandPageComponent},
   { path: 'socials', component: SocialsPageComponent},
   { path: 'academic', component: AcademicPageComponent},
-  { path: 'novoland', component: NovolandPageComponent}
+  { path: 'novoland', component: NovolandPageComponent},
+  { path: 'profile', component: ProfilePageComponent}
 ];
 
 @NgModule({
