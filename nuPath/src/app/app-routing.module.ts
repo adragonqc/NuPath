@@ -10,6 +10,10 @@ import { NovolandPageComponent } from './novoland-page/novoland-page.component';
 import { NulifePageComponent } from './nulife-page/nulife-page.component';
 import { SocialsPageComponent } from './socials-page/socials-page.component';
 
+//test
+import { DormPageComponent } from './dorm-page/dorm-page.component';
+import { PackingListPageComponent } from './packinglist-page/packinglist-page.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent },
@@ -20,7 +24,11 @@ const routes: Routes = [
   { path: 'nearnovoland', component: NearNovolandPageComponent},
   { path: 'socials', component: SocialsPageComponent},
   { path: 'academic', component: AcademicPageComponent},
-  { path: 'novoland', component: NovolandPageComponent}
+  { path: 'novoland', component: NovolandPageComponent},
+
+  //test
+  { path: 'dorms', component: DormPageComponent},
+  { path: 'packinglist', component: PackingListPageComponent}
 ];
 
 @NgModule({
