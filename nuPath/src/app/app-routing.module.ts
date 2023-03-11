@@ -13,6 +13,7 @@ import { SocialsPageComponent } from './socials-page/socials-page.component';
 //test
 import { DormPageComponent } from './dorm-page/dorm-page.component';
 import { PackingListPageComponent } from './packinglist-page/packinglist-page.component';
+import { FacilitiesPageComponent } from './facilities-page/facilities-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -29,6 +30,7 @@ const routes: Routes = [
   //test
   { path: 'dorms', component: DormPageComponent},
   { path: 'packinglist', component: PackingListPageComponent}
+  { path: 'facilities', component: FacilitiesPageComponent}
 ];
 
 @NgModule({

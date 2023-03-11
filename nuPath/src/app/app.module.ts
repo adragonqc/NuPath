@@ -20,6 +20,12 @@ import { NovolandPageComponent } from './novoland-page/novoland-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 
+//test
+import { NulifeSidebarComponent } from './nulife-sidebar/nulife-sidebar.component';
+import { DormPageComponent } from './dorm-page/dorm-page.component';
+import { PackingListPageComponent } from './packinglist-page/packinglist-page.component';
+import { FacilitiesPageComponent } from './facilities-page/facilities-page.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +40,13 @@ import { LoginPageComponent } from './login-page/login-page.component';
     SocialsPageComponent,
     NovolandPageComponent,
     ProfilePageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+
+    //test
+    NulifeSidebarComponent,
+    DormPageComponent,
+    PackingListPageComponent,
+    FacilitiesPageComponent
   ],
   imports: [
     BrowserModule,
