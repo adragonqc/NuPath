@@ -26,6 +26,7 @@ import java.util.List;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+
 /**
  * I can probably save the different leaderboard tasks as .txt files and then every minute or something 
  * like that I can update the lb by reading those .txt files and extracting the necessary information from them 
@@ -33,6 +34,7 @@ import org.bson.types.ObjectId;
 
 public class LeaderBoard {
     
+    private GetDbCollection mongoDB = new GetDbCollection();
 
     public LeaderBoard(){
 
@@ -41,88 +43,58 @@ public class LeaderBoard {
 
     public void getTasksInformation(){
 
-        //Opening database
-        MongoClientURI uri = new MongoClientURI("mongodb+srv://nuPathLogin:08426%21%23%25Nnn@nupath.gkq49uo.mongodb.net/test");
-        MongoClient mongoClient = new MongoClient(uri);
-
-        //Accessing Tasks database, then getting all of the collections within it
-        MongoDatabase database = mongoClient.getDatabase("Tasks");
-        MongoCollection<Document> dormCollection = database.getCollection("DormSelection");
-        MongoCollection<Document> classCollection = database.getCollection("ClassSelection");
-        MongoCollection<Document> facilitiesCollection = database.getCollection("FacilitiesSelection");
-        MongoCollection<Document> facultyCollection = database.getCollection("FacultySelection");
-        MongoCollection<Document> foodCollection = database.getCollection("FoodSelection");
-
-        FindIterable<Document> dormIterDoc = dormCollection.find();
-        Iterator it = dormIterDoc.iterator();
-
-        /** 
-        int i = 1;
-        while(it.hasNext() ){
-            System.out.println( it.next() );
-            
-            i++;
-        }*/
 
 
-        ArrayList<String> dormInformation = new ArrayList<>();
-        ArrayList<Integer> dormInformationTask = new ArrayList<>();
+        MongoCollection<Document> dormCollection = mongoDB.returnCollection("Tasks", "DormSelection");
+        MongoCollection<Document> classCollection = mongoDB.returnCollection("Tasks", "ClassSelection");
+        MongoCollection<Document> facilitiesCollection = mongoDB.returnCollection("Tasks", "FacilitiesSelection");
+        MongoCollection<Document> facultyCollection = mongoDB.returnCollection("Tasks", "FacultySelection");
+        MongoCollection<Document> foodCollection = mongoDB.returnCollection("Tasks", "FoodSelection");
 
-        for(Document document : dormCollection.find() ){
-            System.out.println(document.getString("Username") );
-            dormInformation.add( document.getString("Username") );
-            dormInformationTask.add( document.getInteger("Task Number") );
-        }
-
-        for(int i = 0; i < dormInformation.size(); i++){
-            System.out.println(dormInformation.get(i) );
-        }
-
-        String test = "";
-        for(Document document : foodCollection.find() ){
-            test = document.getString("Username") ;
-        }
         
+        for(Document doc : dormCollection.find() ){
+            String username = doc.getString("Username");
+            updateLeaderBoard(username, "Dorm");
+        }
 
+        for(Document doc : classCollection.find() ){
+            String username = doc.getString("Username");
+            updateLeaderBoard(username, "Class");
+        }
 
+        for(Document doc : facilitiesCollection.find() ){
+            String username = doc.getString("Username");
+            updateLeaderBoard(username, "Facilities");
+        }   
 
-        //If ArrayList.contains("StringToBeChecked");
-        //If list.contains(testString); returns boolean
-        
+        for(Document doc : facultyCollection.find() ){
+            String username = doc.getString("Username");
+            updateLeaderBoard(username, "Faculty");
+        }
 
+        for(Document doc : foodCollection.find() ){
+            String username = doc.getString("Username");
+            updateLeaderBoard(username, "Food");
+        }
 
-        //String value = dormCollection.find().projection(Projections.include("Username") ).first().getString("Username");
-        //System.out.println(value);
-
-        //Close the mongoClient and prevent this from keeping the connection up to the database
-        mongoClient.close();
     }
 
 
-    public void addToLB(String name, int taskNumber){
+    public void updateLeaderBoard(String username, String field){
+
+        //Get pts information
+
+        //Look through leaderboard docs to find user's doc
+
+        //Update the field to true and add + 100 pts
+    }
 
 
-        /**
-        * Display Name
-        * Username (Hidden) 
-        * Dorm task status
-        * HAM task status
-        * Classes task status
-        * Faculty task status
-        * Facilities task status
-        */
+    /**
+     * The user doesn't have a leaderboard doc for this... actually I can just initialize this whenever user is created
+     */
+    public void createNewLBDoc(){
 
-        //Opening database
-        MongoClientURI uri = new MongoClientURI("mongodb+srv://nuPathLogin:08426%21%23%25Nnn@nupath.gkq49uo.mongodb.net/test");
-        MongoClient mongoClient = new MongoClient(uri);
-
-        //Accessing Tasks database, then getting all of the collections within it
-        MongoDatabase database = mongoClient.getDatabase("Tasks");
-        MongoCollection<Document> leaderboardCollection = database.getCollection("Leaderboard");
-
-        for(Document document : leaderboardCollection.find() ){
-            if( name.compareTo(document.getString("Username")) == 0) ;
-        }
     }
 
 

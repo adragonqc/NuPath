@@ -3,6 +3,11 @@ package com.example;
 
 
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+
+//Resource for img to base64string and base64string to img: https://stackoverflow.com/questions/7178937/java-bufferedimage-to-png-format-base64-string#:~:text=Here%20is%20the%20code%20that,os)%3B%20String%20result%20%3D%20Base64.
+
 /**
  * Random thoughts to not forget
  * Create a folder called Database 
@@ -17,9 +22,26 @@ package com.example;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 import javax.script.ScriptException;
+
+import java.awt.image.BufferedImage;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.sun.net.httpserver.Headers;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 
 public class Testing {
     
@@ -37,11 +59,17 @@ public class Testing {
         System.out.println(softwareEngineering.getName() );
         //softwareEngineering.saveClass();
 
-
-        User newUser = new User("Jacob", "jacobIsCool", "jacob123!", "jacob123@gmail.com", "Video Games, Sports", "I like to play sports and games w/ friends");
+        
+        User newUser = new User("Jacob", "jacobIsCool", "jacob123!");
+        newUser.uploadPFP("142wpm.png");
+        //BufferedImage testingImg = newUser.getPFP();
+        //newUser.imageToBase64String(testingImg);
+        newUser.uploadPFP( "140wpm.png" );
+        //newUser.displayPFP();
+        //newUser.saveInformation();
         //newUser.saveInformation();
         UserList currentUsers = new UserList();
-        currentUsers.addUser(newUser);
+        //currentUsers.addUser(newUser);
 
 
         //Forums forum = new Forums();
@@ -61,8 +89,8 @@ public class Testing {
         //HAM testHAM = new HAM();
         //testHAM.completeTask();
 
-        //Facilities testFacilities = new Facilities();
-        //testFacilities.completeTask();
+        Facilities testFacilities = new Facilities(newUser);
+        testFacilities.completeTask();
 
         //Faculty testFaculty = new Faculty();
         //testFaculty.completeTask();
@@ -71,10 +99,49 @@ public class Testing {
         //testClasses.completeTask();
 
 
-        LeaderBoard lbTest = new LeaderBoard();
-        lbTest.getTasksInformation();
+        //LeaderBoard lbTest = new LeaderBoard();
+        //lbTest.getTasksInformation();
 
+        //MainMenu menu = new MainMenu(newUser);
+        //Webserver webServer = new Webserver(9000);
+
+
+        //HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        //server.createContext("/echo", new Handler() );
+        //server.start(); 
+
+
+
+        /** 
+        URL url = new URL("https://c8a8c7b8-49ab-4275-818f-c001423f4a63.mock.pstmn.io");
+        URLConnection conn = url.openConnection();
+        conn.setDoInput(true);
+        conn.setDoOutput(true);
+        conn.setUseCaches(false);
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+        DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+        String content = "CONTENT=HELLO JSP !&ONEMORECONTENT =HELLO POST !";
+
+        out.writeBytes(content);
+        out.flush();
+        out.close();*/
+
+        //DataInputStream in = new DataInputStream(conn.getInputStream());
+        //String str;
+        //while (null != ((str = in.readUTF()))) {
+        //    System.out.println(str );
+        //}
+        //in.close();
+
+
+
+
+        //Handler test = new Handler();
+        //test.handle( newUser.getDisplayName() );
 
 
     }
+
 }
+

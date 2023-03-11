@@ -33,36 +33,24 @@ public class Faculty implements Task{
 
     private ArrayList<String> facultyNames;
     private User user;
-    private String userName = "demoPerson";
-    private int taskNumber = 5;
+    private GetDbCollection mongoDB = new GetDbCollection();
 
 
-    public Faculty(){
-
+    public Faculty(User user){
+        this.user = user;
     }
 
     public void addFaculty(String faculty){
-        facultyNames.add(faculty);
+        this.user.setFacultySelection(faculty);
     }
 
 
 
     public void completeTask(){
 
-        //Opening database
-        MongoClientURI uri = new MongoClientURI("mongodb+srv://nuPathLogin:08426%21%23%25Nnn@nupath.gkq49uo.mongodb.net/test");
-        MongoClient mongoClient = new MongoClient(uri);
-
-        //Accessing Tasks database, then getting the FacultySelection collection
-        MongoDatabase database = mongoClient.getDatabase("Tasks");
-        MongoCollection<Document> collection = database.getCollection("FacultySelection");
-
-        //Creating new document to insert into the FacultySelection collection, so leaderboard can grab the information later
-        Document document = new Document("Username", userName).append("Task Number", taskNumber);
-        collection.insertOne(document);
-
-        //Close the mongoClient and prevent this from keeping the connection up to the database
-        mongoClient.close();
+        MongoCollection<Document> dormCollection = mongoDB.returnCollection("Tasks", "FacultySelection");
+        Document document = new Document("Username", user.getUsername() ).append("Display Name", user.getDisplayName() );
+        dormCollection.insertOne(document);
     }
 
 }

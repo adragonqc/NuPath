@@ -8,30 +8,7 @@ package com.example;
 
 
 import java.util.ArrayList;
-
-
-
-/**
- * TO-DO:
- * Save/Get Name
- * Save/Get Username
- * Save/Get Password
- * Save/Get Classes
- * Save/Get Faculty
- * Get posts
- * Save/Get Food Options
- * Save/Get Dorm Selection
- * Save/Get About me
- * (OPT) Save/Get Doodles
- * Save/Get PFP
- */
-
-
-//If user is null then don't access certain things like adding classes,food options, etc
-//Permission of 0+ to view certain stuff, Permission of 1+ to view forums, Permission of 2+ to add classes
-//Basically visitor, student, admin
-//Whole thing is dumb, only 2 permissions are needed and if user is null then it can't view things like forums
-
+import java.util.Base64;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.ConnectionString;
@@ -41,124 +18,304 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.UpdateResult;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
+import org.apache.commons.io.FileUtils;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.awt.*;
 
+
+/**
+ * 
+ */
 public class User {
     
-    private String displayName, username, password, socialMedia, interests, foodSelections, facultySelections, facilitiesSlection, dormSelection, 
-    aboutMe;
-    private int permissionLevel;
+    private String displayName, username, password, interests, foodSelections, facultySelections, facilitiesSlection, dormSelection, 
+    aboutMe, pfpString, permissionLevel, contactInformation;
     private Classes classes;
-    //Have img PFP;
-    //Also have img[] photoGallery
+    private BufferedImage pfp;
+    private ArrayList<BufferedImage> photoGallery = new ArrayList<>();
+    private GetDbCollection mongoDB = new GetDbCollection();
 
 
-    public User(String displayName, String username, String password, String socialMedia, String interests, String aboutMe){
+    /**
+     * This is the constructor for when a user is first making their account
+     * @param displayName
+     * @param username
+     * @param password
+     */
+    public User(String displayName, String username, String password){
 
         this.displayName = displayName;
         this.username = username;
         this.password = password;
-        this.socialMedia = socialMedia;
-        this.interests = interests;
-        this.aboutMe = aboutMe;
-        this.permissionLevel = 1;
+        this.permissionLevel = "1";
+
+        saveInformation();  //Only saves information when User is initialized
+        MongoCollection<Document> leaderboard = mongoDB.returnCollection("Tasks", "Leaderboard");
+        Document document = new Document("Display Name", this.displayName).append("Username", this.username).append("Dorm", "False")
+        .append("Class", "False").append("Facilities", "False").append("Faculty", "False").append("Food", "False");
+        leaderboard.insertOne(document);
     }
 
+
+   /**
+    * 
+    * @param username
+    * @param password
+    */
+    public User(String username, String password){
+        accessUserInformation();
+    }
 
 
     public void updateDisplayName(String name){
         this.displayName = name;
-        saveInformation();
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Display Name", this.displayName);
     }
 
     public void updatePassword(String password){
         this.password = password;
-        saveInformation();
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Password", this.password);
+    }
+
+    public void uploadPFP(String fileName){
+        this.pfp = createImg(fileName);
+        imageToBase64String(pfp);
+    }
+
+    public void updateContactInfo(String contactInfo){
+        this.contactInformation = contactInfo;
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Contact Information", this.contactInformation);
+    }
+
+    public void addImgToPhotos(String fileName){
+        //Get PhotoGallery db array and convert it to arraylist, then add file
+        this.photoGallery.add( createImg(fileName) );
+        saveInformation(); //Change this to be update information instead
     }
 
     public void updateAboutMe(String aboutMe){
         this.aboutMe = aboutMe;
-        saveInformation();
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Display Name", this.displayName);
     }
 
     public void setFoodSelection(String foodSelection){
         this.foodSelections = foodSelection;
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Food Selection", this.foodSelections);
     }
 
     public void setFacultySelection(String facultySelection){
         this.facultySelections = facultySelection;
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Faculty Selection", this.facultySelections);
     }
 
     public void setFacilitiesSelection(String facilitiesSelection){
         this.facilitiesSlection = facilitiesSelection;
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Facilities Selection", this.facilitiesSlection);
     }
 
     public void setDormSelection(String dormSelection){
         this.dormSelection = dormSelection;
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Dorm Selection", this.dormSelection);
     }
 
+    //TO-DO
     public void setClasses(Class selectedClass){
         this.classes.addClasses(selectedClass);
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Class selection", "TO-DO");
     }
 
-    
-
-    public void updatePermissionLevel(int permissionLevel){
+    public void updatePermissionLevel(String permissionLevel){
         this.permissionLevel = permissionLevel;
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Permission Level", this.permissionLevel);
     }
 
     public String getDisplayName(){
-        return displayName;
+        return this.displayName;
     }
 
-    public String returnAboutMe(){
-        return aboutMe;
+    public String getUsername(){
+        return this.username;
+    }
+
+    public String getAboutMe(){
+        return this.aboutMe;
+    }
+
+    public BufferedImage getPFP(){
+        return this.pfp;
+    }
+
+    public String getInterests(){
+        return this.interests;
+    }
+
+    public String getContactInformation(){
+        return this.contactInformation;
+    }
+
+    public String getPermissionLevel(){
+        return this.permissionLevel;
+    }
+
+    public String getFoodSelection(){
+        return this.foodSelections;
+    }
+
+    public String getDormSelection(){
+        return this.dormSelection;
+    }
+
+    public String getFacultySelection(){
+        return this.facultySelections;
+    }
+
+    public String getFacilitiesSelection(){
+        return this.facilitiesSlection;
     }
 
 
 
+    /** 
+    //Remove this later, prob isnt needed
+    public String getPFPString(){
+        return this.pfpString;
+    }*/
 
 
+    public BufferedImage createImg(String fileName){
 
-    public boolean checkLoginInformation(String username, String password){
-
-        if(this.username == username && this.password == password){
-            return true;
+        try{
+            //Img could be read, so it returns the BufferedImage of it.
+            return ImageIO.read(new File(fileName) );
         }
-        return false;
+        catch(IOException e){
+
+        }
+
+        //Img couldn't be read, so a null is returned
+        return null;
     }
 
 
+    public void displayPFP(){
+
+        Graphics2D g = (Graphics2D) pfp.getGraphics();
+        g.setStroke(new BasicStroke(3));
+        g.setColor(Color.BLUE);
+        g.drawRect(10, 10, pfp.getWidth() - 20, pfp.getHeight() - 20);
+
+        JLabel picLabel = new JLabel(new ImageIcon(pfp));
+
+        JPanel jPanel = new JPanel();
+        jPanel.add(picLabel);
+
+        JFrame f = new JFrame();
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setSize(new Dimension(pfp.getWidth(), pfp.getHeight()));
+        f.add(jPanel);
+        f.setVisible(true);
+    }
+
+
+    /**
+     * This takes in an image, and then it goes through encoding the image to 64string, and when it 
+     * converts the image to 64string, then it saves it to "PFP" for database.
+     * @param image
+     */
+    public void imageToBase64String(BufferedImage image){
+
+        String base64String = null;
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+        try{
+        ImageIO.write(image, "png", os);
+            base64String = Base64.getEncoder().encodeToString(os.toByteArray());
+        }
+        catch (IOException e){
+            throw new UncheckedIOException(e);
+        }
+
+
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "PFP", base64String);
+
+    }
+
+    /**
+     * Converts the base64string parameter and returns it as BufferedImage.
+     * @param base64String
+     * @return BufferedImage now that it's been converted
+     */
+    public BufferedImage base64StringToImg(String base64String) {
+        
+        try {
+            return ImageIO.read(new ByteArrayInputStream(Base64.getDecoder().decode(base64String)));
+        } catch (final IOException ioe) {
+            throw new UncheckedIOException(ioe);
+        }
+    }
+
+    /**
+     * This saves the information and will only be used when the user is being initialized
+     */
     public void saveInformation(){
 
-        //Opening database
-        MongoClientURI uri = new MongoClientURI("mongodb+srv://nuPathLogin:08426%21%23%25Nnn@nupath.gkq49uo.mongodb.net/test");
-        MongoClient mongoClient = new MongoClient(uri);
-
-        //Accessing UserDatabase database, then getting the Users collection
-        MongoDatabase database = mongoClient.getDatabase("UserDatabase");
-        MongoCollection<Document> collection = database.getCollection("Users");
+        MongoCollection<Document> userCollection = mongoDB.returnCollection("UserDatabase", "Users");
 
         //Creating new document to insert into the Users collection, so leaderboard can grab the information later
         Document document = new Document("Username", username).append("Password", password).append("Display Name", displayName)
-        .append("Social Media", socialMedia).append("Interests", interests).append("Food Selection", foodSelections)
+        .append("Contact Information", this.contactInformation).append("Interests", interests).append("Food Selection", foodSelections)
         .append("Faculty Selection", facultySelections).append("Facilities Selection", facilitiesSlection).append("Dorm Selection", dormSelection)
-        .append("About Me", aboutMe);
+        .append("About Me", aboutMe).append("PFP", "").append("Permission Level", this.permissionLevel);
 
-        collection.insertOne(document);
+        userCollection.insertOne(document);
 
-        //Close the mongoClient and prevent this from keeping the connection up to the database
-        mongoClient.close();
     }
 
+    /**
+     * This access's the information to the user that was saved in the db, and then sets the values from the database,
+     * to the variables that were made in this class.
+     */
     public void accessUserInformation(){
         
+        MongoCollection<Document> userCollection = mongoDB.returnCollection("UserDatabase", "Users");
+
+        for(Document doc : userCollection.find() ){
+            this.displayName = doc.getString("Display Name");
+            this.username = doc.getString("Username");
+            this.password = doc.getString("Password");
+            this.contactInformation = doc.getString("Contact Information");
+            this.interests = doc.getString("Interests");
+            this.foodSelections = doc.getString("Food Selection");
+            this.facultySelections = doc.getString("Faculty Selections");
+            this.facilitiesSlection = doc.getString("Facilities Selection");
+            this.dormSelection = doc.getString("Dorm Selection");
+            this.aboutMe = doc.getString("About Me");
+            this.permissionLevel = doc.getString("Permission Level");
+            this.pfp = base64StringToImg( doc.getString("PFP") );
+        }
     }
 
 

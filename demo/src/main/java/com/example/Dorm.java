@@ -27,33 +27,23 @@ public class Dorm implements Task{
 
 
     private User user;
-    //private String userName = "demoPerson";
-    private int taskNumber = 2;
+    private GetDbCollection mongoDB = new GetDbCollection();
 
 
     public Dorm(User user){
         this.user = user;
     }
 
+    public void addDorm(String dorm){
+        this.user.setDormSelection(dorm);
+    }
+
 
     public void completeTask(){
 
-        //Opening database
-        MongoClientURI uri = new MongoClientURI("mongodb+srv://nuPathLogin:08426%21%23%25Nnn@nupath.gkq49uo.mongodb.net/test");
-        MongoClient mongoClient = new MongoClient(uri);
-
-        //Accessing Tasks database, then getting the DormSelection collection
-        MongoDatabase database = mongoClient.getDatabase("Tasks");
-        MongoCollection<Document> collection = database.getCollection("DormSelection");
-
-        //Creating new document to insert into the DormSelection collection, so leaderboard can grab the information later
-
-        long now = System.currentTimeMillis();
-        Document document = new Document("Username", user.getDisplayName() ).append("Task Number", taskNumber).append("Time", now);
-        collection.insertOne(document);
-
-        //Close the mongoClient and prevent this from keeping the connection up to the database
-        mongoClient.close();
+        MongoCollection<Document> dormCollection = mongoDB.returnCollection("Tasks", "DormSelection");
+        Document document = new Document("Username", user.getUsername() ).append("Display Name", user.getDisplayName() );
+        dormCollection.insertOne(document);
     }
 
 }

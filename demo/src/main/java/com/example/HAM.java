@@ -26,41 +26,34 @@ import java.util.ArrayList;
 
 
 
-
+/**
+ * Creates new instance of HAM for every user 
+ */
 public class HAM implements Task{
 
     private User user;
-    private String userName = "demoPerson";
-    private ArrayList<String> foodSelection;
-    private int taskNumber = 3;
+    private GetDbCollection mongoDB = new GetDbCollection();
 
-    
-    public HAM(){
-
+    /**
+     * Constructor for HAM class
+     * @param user - 
+     */
+    public HAM(User user){
+        this.user = user;
     }
+
 
     public void addFood(String food){
-        foodSelection.add(food);
+        this.user.setFoodSelection(food);
     }
-
 
 
     public void completeTask(){
 
-        //Opening database
-        MongoClientURI uri = new MongoClientURI("mongodb+srv://nuPathLogin:08426%21%23%25Nnn@nupath.gkq49uo.mongodb.net/test");
-        MongoClient mongoClient = new MongoClient(uri);
+        MongoCollection<Document> foodCollection = mongoDB.returnCollection("Tasks", "FoodSelection");
+        Document document = new Document("Username", user.getUsername() ).append("Display Name", user.getDisplayName() );
+        foodCollection.insertOne(document);
 
-        //Accessing Tasks database, then getting the FoodSelection collection
-        MongoDatabase database = mongoClient.getDatabase("Tasks");
-        MongoCollection<Document> collection = database.getCollection("FoodSelection");
-
-        //Creating new document to insert into the FoodSelection collection, so leaderboard can grab the information later
-        Document document = new Document("Username", userName).append("Task Number", taskNumber);
-        collection.insertOne(document);
-
-        //Close the mongoClient and prevent this from keeping the connection up to the database
-        mongoClient.close();
     }
 
 }

@@ -29,13 +29,12 @@ import org.bson.types.ObjectId;
 
 public class Classes implements Task{
     
-    ArrayList<Class> classList;
+    private ArrayList<Class> classList;
     private User user;
-    private String userName = "demoPerson";
-    private int taskNumber = 1;
+    private GetDbCollection mongoDB = new GetDbCollection();
 
-    public Classes(){
-
+    public Classes(User user){
+        this.user = user;
     }
     
     public void addClasses(Class class1){
@@ -53,20 +52,9 @@ public class Classes implements Task{
 
     public void completeTask(){
 
-        //Opening database
-        MongoClientURI uri = new MongoClientURI("mongodb+srv://nuPathLogin:08426%21%23%25Nnn@nupath.gkq49uo.mongodb.net/test");
-        MongoClient mongoClient = new MongoClient(uri);
-
-        //Accessing Tasks database, then getting the ClassSelection collection
-        MongoDatabase database = mongoClient.getDatabase("Tasks");
-        MongoCollection<Document> collection = database.getCollection("ClassSelection");
-
-        //Creating new document to insert into the ClassSelection collection, so leaderboard can grab the information later
-        Document document = new Document("Username", userName).append("Task Number", taskNumber);
-        collection.insertOne(document);
-
-        //Close the mongoClient and prevent this from keeping the connection up to the database
-        mongoClient.close();
+        MongoCollection<Document> classCollection = mongoDB.returnCollection("Tasks", "ClassSelection");
+        Document document = new Document("Username", user.getUsername() ).append("Display Name", user.getDisplayName() );
+        classCollection.insertOne(document);
       
     }
 
