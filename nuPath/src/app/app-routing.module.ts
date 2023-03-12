@@ -8,6 +8,7 @@ import { LeaderboardPageComponent } from './leaderboard-page/leaderboard-page.co
 import { NearNovolandPageComponent } from './nearnovoland-page/nearnovoland-page.component';
 import { NovolandPageComponent } from './novoland-page/novoland-page.component';
 import { NulifePageComponent } from './nulife-page/nulife-page.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SocialsPageComponent } from './socials-page/socials-page.component';
 
 //test
@@ -27,10 +28,14 @@ const routes: Routes = [
   { path: 'academic', component: AcademicPageComponent},
   { path: 'novoland', component: NovolandPageComponent},
 
+
   //test
   { path: 'dorms', component: DormPageComponent},
-  { path: 'packinglist', component: PackingListPageComponent}
-  { path: 'facilities', component: FacilitiesPageComponent}
+  { path: 'packinglist', component: PackingListPageComponent},
+  { path: 'facilities', component: FacilitiesPageComponent},
+  
+  { path: 'profile', component: ProfilePageComponent}
+
 ];
 
 @NgModule({

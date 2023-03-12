@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { NgxFileDropModule } from 'ngx-file-drop';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -54,7 +55,8 @@ import { FacilitiesPageComponent } from './facilities-page/facilities-page.compo
     BrowserAnimationsModule,
     FormsModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    NgxFileDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
