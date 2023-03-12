@@ -11,6 +11,11 @@ import { NulifePageComponent } from './nulife-page/nulife-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SocialsPageComponent } from './socials-page/socials-page.component';
 
+//test
+import { DormPageComponent } from './dorm-page/dorm-page.component';
+import { PackingListPageComponent } from './packinglist-page/packinglist-page.component';
+import { FacilitiesPageComponent } from './facilities-page/facilities-page.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent },
@@ -22,7 +27,15 @@ const routes: Routes = [
   { path: 'socials', component: SocialsPageComponent},
   { path: 'academic', component: AcademicPageComponent},
   { path: 'novoland', component: NovolandPageComponent},
+
+
+  //test
+  { path: 'dorms', component: DormPageComponent},
+  { path: 'packinglist', component: PackingListPageComponent},
+  { path: 'facilities', component: FacilitiesPageComponent},
+  
   { path: 'profile', component: ProfilePageComponent}
+
 ];
 
 @NgModule({
