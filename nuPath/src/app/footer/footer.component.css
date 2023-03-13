@@ -1,0 +1,17 @@
+/* 
+    refs:
+    https://www.w3schools.com/css/css3_flexbox_container.asp
+*/
+
+footer{
+    background-color: lightgray;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: left;
+}
+
+.footer-item{
+    padding: 2%;
+}

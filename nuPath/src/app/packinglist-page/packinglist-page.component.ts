@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './packinglist-page.component.html',
   styleUrls: ['./packinglist-page.component.css']
 })
-export class PackingListPageComponent {
+export class PackinglistPageComponent {
 
 }

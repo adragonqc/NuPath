@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
+/*
+    added the NCF official colors as variables to the root
+    to use call var(color) e.g. var(--blue) please include the --
+*/
+:root{
+    --blue: #003087;
+    --lightblue: #7BAFD4;
+    --magenta: #7C2855;
+    --green: #ABAD23;
+    --yellow: #FFBF3F;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
