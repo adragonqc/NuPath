@@ -1,17 +1,6 @@
-/* 
-    refs:
-    https://www.w3schools.com/css/css3_flexbox_container.asp
-*/
-
-.flex-container{
+.flex-row{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    padding-top: 70px;
-}
-
-button{
-    text-align: center;
-    /*color: x;*/
+    justify-content: left;
 }

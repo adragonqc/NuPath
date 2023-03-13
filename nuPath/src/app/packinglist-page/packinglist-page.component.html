@@ -3,8 +3,7 @@
     https://www.ncf.edu/wp-content/uploads/2022/01/Packing-List.pdf 
 -->
 
-<!-- inserted between header/nav bar and footer(if applicable) -->
-<div class="flex-container">
+<div class="flex-row">
 
     <!-- main body of packing list -->
     <div id="mainbody">
@@ -123,20 +122,20 @@
         </p>
     </div>
 
+    <!-- button ref: https://v5.material.angular.io/components/button/overview -->
+
     <!-- button container -->
     <div id="button-container">
         <!-- print button: should print packing list when clicked -->
         <!-- TODO: configure button-->
-        <button type="button" id="print-button">
+        <button mat-raised-button type="button" id="print-button">
             Print
         </button>
 
-        <!-- amazon button: should take you to amazon wishlist when clicked -->
-        <!-- amazon wishlist link: https://www.amazon.com/hz/wishlist/ls/30MURALP74A5J?ref_=wl_share -->
-        <!-- TODO: configure button-->
-        <button type="button" id="amazon-button">
+        <!-- amazon button: opens amazon wishlist in a separate tab -->
+        <a mat-raised-button href="https://www.amazon.com/hz/wishlist/ls/30MURALP74A5J?ref_=wl_share" target="_blank">
             Amazon
-        </button>
+        </a>
 
     </div>
 </div>

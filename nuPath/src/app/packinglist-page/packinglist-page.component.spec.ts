@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PackingListPageComponent } from './packinglist-page.component';
+import { PackinglistPageComponent } from './packinglist-page.component';
 
-describe('PackingListPageComponent', () => {
-  let component: PackingListPageComponent;
-  let fixture: ComponentFixture<PackingListPageComponent>;
+describe('PackinglistPageComponent', () => {
+  let component: PackinglistPageComponent;
+  let fixture: ComponentFixture<PackinglistPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PackingListPageComponent ]
+      declarations: [ PackinglistPageComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PackingListPageComponent);
+    fixture = TestBed.createComponent(PackinglistPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

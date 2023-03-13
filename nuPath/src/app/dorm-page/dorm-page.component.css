@@ -6,3 +6,8 @@
 .container{
     padding-top: 70px;
 }
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

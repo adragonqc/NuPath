@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,14 +21,12 @@ import { SocialsPageComponent } from './socials-page/socials-page.component';
 import { NovolandPageComponent } from './novoland-page/novoland-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
-
-import { FooterComponent } from './footer/footer.component';
-
-//nulife page contents
-import { NulifeSidebarComponent } from './nulife-sidebar/nulife-sidebar.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DormPageComponent } from './dorm-page/dorm-page.component';
-import { PackingListPageComponent } from './packinglist-page/packinglist-page.component';
 import { FacilitiesPageComponent } from './facilities-page/facilities-page.component';
+import { FooterComponent } from './footer/footer.component';
+import { NulifeSidebarComponent } from './nulife-sidebar/nulife-sidebar.component';
+import { PackinglistPageComponent } from './packinglist-page/packinglist-page.component';
 
 
 @NgModule({
@@ -45,14 +44,12 @@ import { FacilitiesPageComponent } from './facilities-page/facilities-page.compo
     NovolandPageComponent,
     ProfilePageComponent,
     LoginPageComponent,
-
-    FooterComponent,
-
-    //nulife page contents
-    NulifeSidebarComponent,
+    PageNotFoundComponent,
     DormPageComponent,
-    PackingListPageComponent,
-    FacilitiesPageComponent
+    FacilitiesPageComponent,
+    FooterComponent,
+    NulifeSidebarComponent,
+    PackinglistPageComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +58,7 @@ import { FacilitiesPageComponent } from './facilities-page/facilities-page.compo
     FormsModule,
     MatSelectModule,
     MatOptionModule,
+    MatButtonModule,
     NgxFileDropModule
   ],
   providers: [],

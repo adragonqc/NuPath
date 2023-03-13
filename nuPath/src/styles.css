@@ -1,4 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
 
+/*
+    added the NCF official colors as variables to the root
+    to use call var(color) e.g. var(--blue) please include the --
+    ref: https://www.w3schools.com/css/css3_variables.asp
+*/
+:root{
+    --blue: #003087;
+    --lightblue: #7BAFD4;
+    --magenta: #7C2855;
+    --green: #ABAD23;
+    --yellow: #FFBF3F;
+}
+
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body { 
+    margin: 0% 5% 0% 5%; /* top right bottom left */
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+.minimap, .yt-viewer{
+    /* set dimensions */
+    width: 560px;
+    height: 315px;
+    padding: 5px;
+
+    /* center */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;    
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
