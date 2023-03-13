@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -57,6 +58,7 @@ import { PackinglistPageComponent } from './packinglist-page/packinglist-page.co
     FormsModule,
     MatSelectModule,
     MatOptionModule,
+    MatButtonModule,
     NgxFileDropModule
   ],
   providers: [],
