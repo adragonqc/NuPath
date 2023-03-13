@@ -20,14 +20,6 @@ import { SocialsPageComponent } from './socials-page/socials-page.component';
 import { NovolandPageComponent } from './novoland-page/novoland-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
-
-import { FooterComponent } from './footer/footer.component';
-
-//nulife page contents
-import { NulifeSidebarComponent } from './nulife-sidebar/nulife-sidebar.component';
-import { DormPageComponent } from './dorm-page/dorm-page.component';
-import { PackingListPageComponent } from './packinglist-page/packinglist-page.component';
-import { FacilitiesPageComponent } from './facilities-page/facilities-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
@@ -46,14 +38,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     NovolandPageComponent,
     ProfilePageComponent,
     LoginPageComponent,
-
-    FooterComponent,
-
-    //nulife page contents
-    NulifeSidebarComponent,
-    DormPageComponent,
-    PackingListPageComponent,
-    FacilitiesPageComponent,
     PageNotFoundComponent
   ],
   imports: [
