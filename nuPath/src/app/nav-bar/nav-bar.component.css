@@ -66,3 +66,8 @@ nav {
   .show .dropdown-menu {
     display: block;
   }
+
+  /* style for current link/page */
+  .selected{
+    background-color: aqua; /* test color change later*/
+  }
