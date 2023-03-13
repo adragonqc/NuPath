@@ -11,6 +11,9 @@ import { NulifePageComponent } from './nulife-page/nulife-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SocialsPageComponent } from './socials-page/socials-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { DormPageComponent } from './dorm-page/dorm-page.component';
+import { FacilitiesPageComponent } from './facilities-page/facilities-page.component';
+import { PackinglistPageComponent } from './packinglist-page/packinglist-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -24,7 +27,10 @@ const routes: Routes = [
   { path: 'academic', component: AcademicPageComponent},
   { path: 'novoland', component: NovolandPageComponent},
   { path: 'profile', component: ProfilePageComponent},
-  { path: '**', component: PageNotFoundComponent }
+  { path: '**', component: PageNotFoundComponent },
+  { path: 'dorms', component: DormPageComponent, outlet: 'nulife-content' },
+  { path: 'facilities', component: FacilitiesPageComponent, outlet: 'nulife-content' },
+  { path: 'packinglist', component: PackinglistPageComponent, outlet: 'nulife-content' }
   
 ];
 
