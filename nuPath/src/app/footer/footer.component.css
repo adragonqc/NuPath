@@ -15,3 +15,11 @@ footer{
 .footer-item{
     padding: 2%;
 }
+
+.icon{
+    width: 16px; 
+    height: 16px;
+    
+    padding-left: 5px;
+    padding-right: 5px;
+}
