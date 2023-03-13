@@ -28,6 +28,7 @@ import { NulifeSidebarComponent } from './nulife-sidebar/nulife-sidebar.componen
 import { DormPageComponent } from './dorm-page/dorm-page.component';
 import { PackingListPageComponent } from './packinglist-page/packinglist-page.component';
 import { FacilitiesPageComponent } from './facilities-page/facilities-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { FacilitiesPageComponent } from './facilities-page/facilities-page.compo
     NulifeSidebarComponent,
     DormPageComponent,
     PackingListPageComponent,
-    FacilitiesPageComponent
+    FacilitiesPageComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
