@@ -3,9 +3,6 @@
     https://www.w3schools.com/css/css3_flexbox_container.asp
 */
 
-.flex-container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+.container{
+    padding-top: 70px;
 }

@@ -31,9 +31,9 @@ const routes: Routes = [
 
 
   //nulife page routing
-  { path: 'dorms', component: DormPageComponent, outlet: "nulife-contents"},
-  { path: 'packinglist', component: PackingListPageComponent, outlet: "nulife-contents"},
-  { path: 'facilities', component: FacilitiesPageComponent, outlet: "nulife-contents"}
+  { path: 'dorms', component: DormPageComponent, /*outlet: "nulife-contents"*/},
+  { path: 'packinglist', component: PackingListPageComponent, /*outlet: "nulife-contents"*/},
+  { path: 'facilities', component: FacilitiesPageComponent, /*outlet: "nulife-contents"*/}
   
 ];
 

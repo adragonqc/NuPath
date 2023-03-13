@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,9 +8,25 @@ import { Component, ElementRef, HostListener } from '@angular/core';
 })
 export class NavBarComponent {
 
+  activeLink = '';
+
   showDropdown = false;
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef, private router: Router) {}
+
+  ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.updateActiveLink();
+      }
+    });
+  }
+
+  updateActiveLink() {
+    const path = this.router.url;
+    const parts = path.split('/');
+    this.activeLink = parts[1];
+  }
 
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;

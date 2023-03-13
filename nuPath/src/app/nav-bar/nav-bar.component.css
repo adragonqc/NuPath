@@ -1,5 +1,10 @@
 nav {
-    background-color: lightgray;
+    background-color: #003087;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
   }
   
   .nav-item {
@@ -12,13 +17,18 @@ nav {
     font-family: Roboto, sans-serif;
     font-size: 16px;
     font-weight: 400;
-    color: #333;
+    color: white;
     text-decoration: none;
   }
 
   .nav-item a:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+/* styles for the active link */
+.nav-item.active a {
+  color: #7BAFD4;
 }
   
   .dropdown-toggle::after {
