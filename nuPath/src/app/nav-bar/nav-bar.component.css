@@ -1,5 +1,5 @@
 nav {
-  background-color: lightgray;
+  background-color: var(--blue);
 
   /* sticky navbar */
   position: fixed;
@@ -17,12 +17,13 @@ nav {
   font-family: Roboto, sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: #333;
+  color: white;
   text-decoration: none;
 }
 
 .nav-item a:hover {
   text-decoration: underline;
+  color:#ccc; 
   cursor: pointer;
 }
 
@@ -74,5 +75,5 @@ nav {
 
 /* highlight current link/page */
 .selected{
-  background-color: aqua; /* test color change later*/
+  background-color: var(--lightblue); /* test color change later*/
 }
