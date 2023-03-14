@@ -4,12 +4,15 @@
 */
 
 footer{
-    background-color: lightgray;
+    background-color: var(--blue);
+    color: white;
 
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: left;
+
+    justify-content: space-between;
+    align-content: space-between;
 }
 
 @media only screen and (max-width: 800px){
@@ -19,13 +22,14 @@ footer{
     }
 }
 
-.footer-item{
-    padding: 2%;
+.footer-left, .footer-center, .footer-right{
+    padding: 10px;
+    margin: 0% 5% 0% 5%; /* top right bottom left */
 }
 
 .icon{
-    width: 20px; 
-    height: 20px;
+    width: 25px; 
+    height: 25px;
     
     padding-left: 5px;
     padding-right: 5px;

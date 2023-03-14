@@ -5,6 +5,7 @@ nav {
   position: fixed;
   top: 0%;
   width: 90%;
+  z-index: 10;
 }
 
 .nav-item {
