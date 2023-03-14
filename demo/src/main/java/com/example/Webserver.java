@@ -59,6 +59,8 @@ public class Webserver{
     //this.server.createContext("UploadImgToPhotos", new UploadImgToPhotoGallery( this.users ) );
     this.server.createContext("/UpdateAboutme", new UpdateAboutMe( this.users ) );
     this.server.createContext("/UpdateContactInformation", new UpdateContactInformation( this.users ) );
+    this.server.createContext("/UpdateInterests", new ReturnInterests( this.users ) );
+    this.server.createContext("/AddToPhotoGallery", new AddImgToPhotoGallery( this.users) );
     this.server.createContext("/ReturnUsername", new ReturnUsername( this.users ) );
     this.server.createContext("/ReturnDisplayName", new ReturnDisplayName( this.users ) );
     this.server.createContext("/ReturnPFP", new ReturnPFP( this.users ) );
@@ -68,7 +70,7 @@ public class Webserver{
     this.server.createContext("/ReturnDorm", new ReturnDorm( this.users ) );
     this.server.createContext("/ReturnFacilities", new ReturnFacilities( this.users ) );
     this.server.createContext("/ReturnFaculty", new ReturnFaculty( this.users ) );
-    this.server.createContext("/ReturnContactINfo", new ReturnContactInformation( this.users) );
+    this.server.createContext("/ReturnContactInfo", new ReturnContactInformation( this.users) ); 
     this.server.createContext("/UpdateLeaderboard", new UpdateLeaderBoard() );
     this.server.createContext("/ReturnLBInfo", new ReturnLBInformation() ); //This needs to be fixed and 2d ArrayList should be sent as a response
 
@@ -141,12 +143,12 @@ class CreateUser implements HttpHandler{
     String password = params.get("Password");
     String contactInfo = params.get("ContactInformation");
 
-    newUsersList.createUser(displayName, username, password, contactInfo);
+    boolean alreadyUsername = newUsersList.createUser(displayName, username, password, contactInfo);
 
     //The username is the token being sent back to the frontend to grab the information from the 
     //users on the website for more information requests.
     //Should probably be changed to something more secure, but that's for later.
-    String response = username;
+    String response = String.valueOf(alreadyUsername);
     exchange.sendResponseHeaders(200, response.length());
     exchange.getResponseBody().write(response.getBytes());
     exchange.getResponseBody().close();
@@ -172,12 +174,11 @@ class Login implements HttpHandler{
     String username = params.get("Username");
     String password = params.get("Password");
 
-    userList.checkLogin(username, password);
+    String response = userList.checkLogin(username, password);
 
     //The username is the token being sent back to the frontend to grab the information from the 
     //users on the website for more information requests.
     //Should probably be changed to something more secure, but that's for later.
-    String response = username;
     exchange.sendResponseHeaders(200, response.length());
     exchange.getResponseBody().write(response.getBytes());
     exchange.getResponseBody().close();
@@ -489,6 +490,32 @@ class UpdateContactInformation implements HttpHandler{
   }
 }
 
+
+class UpdateInterests implements HttpHandler{
+
+  private UserList userList = UserList.getInstance();
+
+  public UpdateInterests(UserList users){
+    this.userList = users;
+  }
+
+  public void handle(HttpExchange exchange) throws IOException{
+
+    Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
+
+    String token = params.get("Username");
+    String interest = params.get("Interest");
+
+    User user = userList.accessUser(token);
+    user.updateInterests(interest);
+
+    String response = interest;
+    exchange.sendResponseHeaders(200, response.length());
+    exchange.getResponseBody().write(response.getBytes());
+    exchange.getResponseBody().close();
+  }
+}
+
 class ReturnUsername implements HttpHandler{
 
   private UserList userList = UserList.getInstance();
@@ -503,7 +530,7 @@ class ReturnUsername implements HttpHandler{
 
     Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
 
-    String token = params.get("Token");
+    String token = params.get("Username");
 
     User user = userList.accessUser(token);
     String username = user.getUsername();
@@ -529,7 +556,7 @@ class ReturnDisplayName implements HttpHandler{
 
     Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
 
-    String token = params.get("Token");
+    String token = params.get("Username");
 
     User user = userList.accessUser(token);
     String displayName = user.getDisplayName();
@@ -555,15 +582,41 @@ class ReturnPFP implements HttpHandler{
 
     Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
 
-    String token = params.get("Token");
+    String token = params.get("Username");
 
     User user = userList.accessUser(token);
-    BufferedImage pfp = user.getPFP();
+    String pfp = user.getPFP();
 
-    BufferedImage response = pfp;
-    //exchange.sendResponseHeaders(200, response.length());
-    //exchange.getResponseBody().write(response.write() );
-    //exchange.getResponseBody().close();
+    String response = pfp;
+    exchange.sendResponseHeaders(200, response.length());
+    exchange.getResponseBody().write(response.getBytes() );
+    exchange.getResponseBody().close();
+  }
+}
+
+class ReturnPhotoGallery implements HttpHandler{
+  private UserList userList = UserList.getInstance();
+
+  public ReturnPhotoGallery(UserList users){
+    this.userList = users;
+  }
+
+  public void handle(HttpExchange exchange) throws IOException{
+    exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+
+    Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
+
+    String token = params.get("Username");
+
+    User user = userList.accessUser(token);
+    List<Object> photoGallery = user.getPhotoGallery();
+
+    for(Object obj : photoGallery){
+      String response = String.valueOf(obj);
+      exchange.sendResponseHeaders(200, response.length());
+      exchange.getResponseBody().write(response.getBytes() );
+      exchange.getResponseBody().close();
+    }
   }
 }
 
@@ -581,7 +634,7 @@ class ReturnAboutMe implements HttpHandler{
 
     Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
 
-    String token = params.get("Token");
+    String token = params.get("Username");
 
     User user = userList.accessUser(token);
     String aboutMe = user.getAboutMe();
@@ -607,7 +660,7 @@ class ReturnInterests implements HttpHandler{
 
     Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
 
-    String token = params.get("Token");
+    String token = params.get("Username");
 
     User user = userList.accessUser(token);
     String interests = user.getInterests();
@@ -633,10 +686,9 @@ class ReturnFood implements HttpHandler{
 
     Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
 
-    String token = params.get("Food");
+    String token = params.get("Username");
     User user = userList.accessUser(token);
     String food = user.getFoodSelection();
-
 
     String response = food;
     exchange.sendResponseHeaders(200, response.length());
@@ -747,7 +799,29 @@ class ReturnContactInformation implements HttpHandler{
   }
 }
 
+class AddImgToPhotoGallery implements HttpHandler{
 
+  private UserList userList = new UserList();
+
+  public AddImgToPhotoGallery(UserList users){
+    this.userList = users;
+  }
+
+  public void handle(HttpExchange exchange) throws IOException{
+
+    Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
+
+    String token = params.get("Username");
+    String newImg = params.get("New Image");
+    User user = userList.accessUser(token);
+    user.addImgToPhotos(newImg);
+
+    String response = token;
+    exchange.sendResponseHeaders(200, response.length());
+    exchange.getResponseBody().write(response.getBytes());
+    exchange.getResponseBody().close();
+  }
+}
 
 
 
@@ -784,10 +858,28 @@ class ReturnLBInformation implements HttpHandler{
     LeaderBoard lb = new LeaderBoard();
     ArrayList<ArrayList<String>> lbInfo = lb.returnLists();
 
-    //String response = lbInfo;
-    String response = "TO-DO";
+    ArrayList<String> responseList = new ArrayList<>();
+
+    for( ArrayList<String> arrString : lbInfo){
+      String inputResponse = "";
+      for(int i = 0; i < 2; i++){
+        inputResponse += arrString.get(i);
+        if(i == 0){
+          inputResponse += " ";
+        }
+      }
+      responseList.add(inputResponse);
+    }
+
+    String response = ""; 
+
+    for(String str : responseList){
+      response += str + " ";
+    }
+
     exchange.sendResponseHeaders(200, response.length());
     exchange.getResponseBody().write(response.getBytes());
     exchange.getResponseBody().close();
+    
   }
 }

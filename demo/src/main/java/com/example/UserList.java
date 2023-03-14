@@ -53,7 +53,7 @@ public class UserList {
 
     }
 
-    public void checkLogin(String username, String pw){
+    public String checkLogin(String username, String pw){
 
 
         MongoCollection<Document> userCollection = mongoDB.returnCollection("UserDatabase", "Users");
@@ -73,14 +73,15 @@ public class UserList {
         if(newUsername != null && password != null){
             User oldUser = new User(newUsername, password);
             addUser(oldUser);
+            return "True";
         }
         else{
-            System.out.println("The login information is incorrect, please try again");
+            return "False";
         }
     }
 
 
-    public void createUser(String displayName, String username, String password, String contactInfo){
+    public boolean createUser(String displayName, String username, String password, String contactInfo){
         
         MongoCollection<Document> userCollection = mongoDB.returnCollection("UserDatabase", "Users");
 
@@ -93,22 +94,23 @@ public class UserList {
         }
 
         if(ifUser){
-            System.out.println("This username is already taken");
+            return false;
         }
         else{
             User newUser = new User(displayName, username, password, contactInfo);
             addUser( newUser );
+            return true;
         }   
 
     }
 
 
     private void addUser(User user){
-        userArray.add(user);
+        this.userArray.add(user);
     }
 
     public void removeUser(User user){
-        userArray.remove(user);
+        this.userArray.remove(user);
     }
 
     public User accessUser(String userName){

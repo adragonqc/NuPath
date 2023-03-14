@@ -9,6 +9,7 @@ package com.example;
 
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.ConnectionString;
@@ -54,7 +55,7 @@ public class User {
     aboutMe, pfpString, permissionLevel, contactInformation;
     private Classes classes;
     private BufferedImage pfp;
-    private ArrayList<BufferedImage> photoGallery = new ArrayList<>();
+    private List<Object> photoGallery = new ArrayList<>();
     private GetDbCollection mongoDB = new GetDbCollection();
 
 
@@ -87,7 +88,7 @@ public class User {
     * @param password
     */
     public User(String username, String password){
-        accessUserInformation();
+        accessUserInformation(username);
     }
 
 
@@ -102,8 +103,8 @@ public class User {
     }
 
     public void uploadPFP(String fileName){
-        this.pfp = createImg(fileName);
-        imageToBase64String(pfp);
+        this.pfpString = fileName;
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "PFP", fileName);
     }
 
     public void updateContactInfo(String contactInfo){
@@ -112,13 +113,9 @@ public class User {
     }
 
     public void addImgToPhotos(String fileName){
-        this.photoGallery.add( createImg(fileName) );
-        ArrayList<String> stringPhotoGallery = new ArrayList<>();
 
-        for(BufferedImage img : photoGallery){
-            String base64 = imageToBase64String(img);
-            stringPhotoGallery.add(base64);
-        }
+        this.photoGallery.add( fileName );
+
 
         MongoCollection<Document> collection = mongoDB.returnCollection("UserDatabase", "Users");
 
@@ -126,11 +123,16 @@ public class User {
             if( username.compareTo( doc.getString("Username") ) == 0){
                 String oldVar = doc.getString("Photo Gallery");
                 Document query = new Document("Photo Gallery", oldVar);
-                Bson updates = Updates.combine(Updates.set("Photo Gallery", stringPhotoGallery) );
+                Bson updates = Updates.combine(Updates.set("Photo Gallery", photoGallery) );
                 collection.updateOne(query, updates);
                 break;
             }
         }
+    }
+
+    public void updateInterests(String interests){
+        this.interests = interests;
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Interests", this.interests);
     }
 
     public void updateAboutMe(String aboutMe){
@@ -181,8 +183,8 @@ public class User {
         return this.aboutMe;
     }
 
-    public BufferedImage getPFP(){
-        return this.pfp;
+    public String getPFP(){
+        return this.pfpString;
     }
 
     public String getInterests(){
@@ -213,7 +215,7 @@ public class User {
         return this.facilitiesSlection;
     }
 
-    public ArrayList<BufferedImage> getPhotoGallery(){
+    public List<Object> getPhotoGallery(){
         return photoGallery;
     }
 
@@ -322,27 +324,40 @@ public class User {
      * This access's the information to the user that was saved in the db, and then sets the values from the database,
      * to the variables that were made in this class.
      */
-    public void accessUserInformation(){
+    public void accessUserInformation(String inputUsername){
         
         MongoCollection<Document> userCollection = mongoDB.returnCollection("UserDatabase", "Users");
 
         for(Document doc : userCollection.find() ){
-            this.displayName = doc.getString("Display Name");
-            this.username = doc.getString("Username");
-            this.password = doc.getString("Password");
-            this.contactInformation = doc.getString("Contact Information");
-            this.interests = doc.getString("Interests");
-            this.foodSelections = doc.getString("Food Selection");
-            this.facultySelections = doc.getString("Faculty Selections");
-            this.facilitiesSlection = doc.getString("Facilities Selection");
-            this.dormSelection = doc.getString("Dorm Selection");
-            this.aboutMe = doc.getString("About Me");
-            this.permissionLevel = doc.getString("Permission Level");
-            if( doc.getString("PFP") != null){
-                this.pfp = base64StringToImg( doc.getString("PFP") );
-            }
-            else{
-                this.pfp = null;
+            if( inputUsername.compareTo( doc.getString("Username") ) == 0){
+                this.displayName = doc.getString("Display Name");
+                this.username = doc.getString("Username");
+                this.password = doc.getString("Password");
+                this.contactInformation = doc.getString("Contact Information");
+                this.interests = doc.getString("Interests");
+                this.foodSelections = doc.getString("Food Selection");
+                this.facultySelections = doc.getString("Faculty Selection");
+                this.facilitiesSlection = doc.getString("Facilities Selection");
+                this.dormSelection = doc.getString("Dorm Selection");
+                this.aboutMe = doc.getString("About Me");
+                this.permissionLevel = doc.getString("Permission Level");
+                this.pfpString = doc.getString("PFP");
+
+                System.out.println();
+                System.out.println("Breaking during photogallery being taken");
+                System.out.println();
+                //this.photoGallery = (List<Object>) doc.getList(doc, photoGallery.getClass() );
+
+                System.out.println();
+                System.out.println("Breaking after photoGallery but before printing each item out");
+                System.out.println();
+
+                for(Object obj : photoGallery){
+                    System.out.println();
+                    System.out.println(obj);
+                    System.out.println();
+                }
+                
             }
             
         }
@@ -350,3 +365,5 @@ public class User {
 
 
 }
+
+

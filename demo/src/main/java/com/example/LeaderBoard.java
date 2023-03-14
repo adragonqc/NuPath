@@ -78,6 +78,7 @@ public class LeaderBoard {
             updateLeaderBoard(username, "Food");
         }
 
+
     }
 
 
@@ -86,7 +87,7 @@ public class LeaderBoard {
         MongoCollection<Document> lbCollection = mongoDB.returnCollection("Tasks", "Leaderboard");
 
         for(Document doc : lbCollection.find() ){
-            if(username.compareTo(doc.getString("Username") ) == 0 && doc.getString(field).compareTo("False") != 0){
+            if(username.compareTo(doc.getString("Username") ) == 0 && doc.getString(field).compareTo("False") == 0){
                 mongoDB.updateDatabase("Tasks", "Leaderboard", username, field, "True");
                 int points = Integer.valueOf( doc.getString("Points") );
                 points += 100;
