@@ -1,5 +1,5 @@
 nav {
-  background-color: lightgray;
+  background-color: #003087;
 
   /* sticky navbar */
   position: fixed;
@@ -17,7 +17,7 @@ nav {
   font-family: Roboto, sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: #333;
+  color: white;
   text-decoration: none;
 }
 
@@ -34,8 +34,8 @@ nav {
   position: absolute;
   top: 35px;
   left: -5px;
-  background-color: white;
-  border: 1px solid #ccc;
+  background-color: #003087;
+  border: 1px solid #003087;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -52,12 +52,12 @@ nav {
   font-family: Roboto, sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: #333;
+  color: white;
   text-decoration: none;
 }
 
 .dropdown-menu li a:hover {
-  background-color: #ccc;
+  background-color: #7BAFD4;
 }
 
 .dropdown {
@@ -74,5 +74,5 @@ nav {
 
 /* highlight current link/page */
 .selected{
-  background-color: aqua; /* test color change later*/
+  background-color: #7BAFD4; /* test color change later*/
 }

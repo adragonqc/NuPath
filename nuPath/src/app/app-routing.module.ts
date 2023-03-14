@@ -15,22 +15,26 @@ import { FacilitiesPageComponent } from './facilities-page/facilities-page.compo
 import { PackinglistPageComponent } from './packinglist-page/packinglist-page.component';
 
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent },
   { path: 'catalyst', component: CatalystPageComponent },
-  { path: 'leaderboard', component: LeaderboardPageComponent},
+  { path: 'leaderboard', component: LeaderboardPageComponent },
   { path: 'nulife', component: NulifePageComponent },
   { path: 'calendar', component: CalendarPageComponent },
-  { path: 'nearnovoland', component: NearNovolandPageComponent},
-  { path: 'socials', component: SocialsPageComponent},
-  { path: 'academic', component: AcademicPageComponent},
-  { path: 'novoland', component: NovolandPageComponent},
-  { path: 'profile', component: ProfilePageComponent},
+  { path: 'nearnovoland', component: NearNovolandPageComponent },
+  { path: 'socials', component: SocialsPageComponent },
+  { path: 'academic', component: AcademicPageComponent },
+  { path: 'novoland', component: NovolandPageComponent },
+  { path: 'profile', component: ProfilePageComponent },
   { path: 'dorms', component: DormPageComponent },
   { path: 'facilities', component: FacilitiesPageComponent },
   { path: 'packinglist', component: PackinglistPageComponent },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'register', component: RegisterPageComponent },
 
 
   //nulife page routing

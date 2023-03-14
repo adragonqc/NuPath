@@ -1,0 +1,17 @@
+<form (submit)="onSubmit()">
+    <div>
+      <label for="display-name">Display Name:</label>
+      <input type="text" id="display-name" name="display-name" [(ngModel)]="displayName">
+    </div>
+    <div>
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" [(ngModel)]="message"></textarea>
+    </div>
+    <button type="submit">Post</button>
+  </form>
+  
+  <div *ngFor="let post of posts">
+    <h3>{{ post.displayName }}</h3>
+    <p>{{ post.message }}</p>
+  </div>
+  
