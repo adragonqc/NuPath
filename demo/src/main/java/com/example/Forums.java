@@ -10,6 +10,7 @@ package com.example;
 import com.mongodb.BasicDBObject;
 import com.mongodb.ConnectionString;
 import com.mongodb.DBObject;
+import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
@@ -18,7 +19,9 @@ import com.mongodb.client.MongoDatabase;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.bson.Document;
@@ -27,7 +30,7 @@ import org.bson.types.ObjectId;
 public class Forums {
     
     ArrayList<User> userList;
-    //User testUser = userList.get(0);
+    GetDbCollection mongoDB = new GetDbCollection();
     
     public Forums(){
 
@@ -41,31 +44,40 @@ public class Forums {
         }
     }
 
-    public ArrayList<User> returnUsers(){
-        return userList;
-    }
+    public void addMessage(String message, String displayName){
 
-    public void addMessage(String message){
+        MongoCollection<Document> collection = mongoDB.returnCollection("Forum", "Messages");
+        
 
-        //Opening database
-        MongoClientURI uri = new MongoClientURI("mongodb+srv://nuPathLogin:08426%21%23%25Nnn@nupath.gkq49uo.mongodb.net/test");
-        MongoClient mongoClient = new MongoClient(uri);
 
-        //Accessing Forum database, then getting the Messages collection
-        MongoDatabase database = mongoClient.getDatabase("Forum");
-        MongoCollection<Document> collection = database.getCollection("Messages");
 
-        //Creating new document to insert into the Message collection, so leaderboard can grab the information later
-        long now = System.currentTimeMillis();
-        Document document = new Document("Display Name", userList.get(0).getDisplayName() ).append("Message", message).append("Time", now);
+        long yourmilliseconds = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy HH:mm");    
+        Date resultdate = new Date(yourmilliseconds);
+
+        Document document = new Document("Display Name", displayName ).append("Message", message).append("Time", sdf.format(resultdate) );
         collection.insertOne(document);
 
-        //Close the mongoClient and prevent this from keeping the connection up to the database
-        mongoClient.close();
     }
 
-    public void displayMessages(){
+    public ArrayList<ArrayList<String>> getMessages(){
+        ArrayList<ArrayList<String>> messages = new ArrayList<>();
 
+        MongoCollection<Document> messageCollection = mongoDB.returnCollection("Forum", "Messages");
+
+        for(Document doc : messageCollection.find() ){
+            ArrayList<String> userMsg = new ArrayList<>();
+            String time = doc.getString("Time");
+            userMsg.add(time);
+            String displayName = doc.getString("Display Name");
+            userMsg.add(displayName);
+            String message = doc.getString("Message");
+            userMsg.add(message);
+            messages.add(userMsg);
+        }
+
+
+        return messages;
     }
 
 }

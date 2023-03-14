@@ -47,38 +47,40 @@ public class UserList {
     private Faculty faculty;
     private Classes classes;
     private Dorm dorm;
+    private Forums forum = new Forums();
 
     public UserList(){
 
     }
 
-    public void testWebServer(){
-        //Do nothing
-    }
-
     public void checkLogin(String username, String pw){
+
 
         MongoCollection<Document> userCollection = mongoDB.returnCollection("UserDatabase", "Users");
         
-        String userName = "";
-        String password = "";
+        String newUsername = null;
+        String password = null;
 
         for(Document doc : userCollection.find() ){
 
             if( (username.compareTo( doc.getString("Username") ) == 0) && (pw.compareTo( doc.getString("Password") ) == 0) ){
-                userName = doc.getString("Username");
+                newUsername = doc.getString("Username");
                 password = doc.getString("Password");
                 break;
             }
         }
 
-
-        User oldUser = new User(userName, password);
-        addPreviousUser(oldUser);
+        if(newUsername != null && password != null){
+            User oldUser = new User(newUsername, password);
+            addUser(oldUser);
+        }
+        else{
+            System.out.println("The login information is incorrect, please try again");
+        }
     }
 
 
-    public void createUser(String displayName, String username, String password){
+    public void createUser(String displayName, String username, String password, String contactInfo){
         
         MongoCollection<Document> userCollection = mongoDB.returnCollection("UserDatabase", "Users");
 
@@ -94,27 +96,15 @@ public class UserList {
             System.out.println("This username is already taken");
         }
         else{
-            User newUser = new User(displayName, username, password);
-            addNewUser( newUser );
+            User newUser = new User(displayName, username, password, contactInfo);
+            addUser( newUser );
         }   
 
     }
 
 
-    private void addNewUser(User user){
+    private void addUser(User user){
         userArray.add(user);
-    }
-
-    private void addPreviousUser(User user){
-
-        if(user != null){
-            user.accessUserInformation();
-            userArray.add(user);
-        }
-        else{
-            System.out.println("The login information is incorrect. Please try again.");
-        }
-
     }
 
     public void removeUser(User user){
@@ -133,21 +123,20 @@ public class UserList {
         return null;
     }
 
+    /**
+     * This is for forums if you want to see all of the online users.
+     * @return all of the user in the User ArrayList
+     */
     public ArrayList<User> getUsersArray(){
         return userArray;
     }
-
-    public void addFoodToUser(User user, String food){
-        HAM saveHAM = new HAM(user);
-        saveHAM.addFood(food);
-    }
-
-
-
 
     public static UserList getInstance(){
         return instance;
     }
 
+    public Forums getForum(){
+        return this.forum;
+    }
     
 }

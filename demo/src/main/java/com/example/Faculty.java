@@ -1,7 +1,8 @@
 package com.example;
 
 /**
- * 
+ * This allows the user to select a faculty member and then update it to the mongodb, and then whenever the 
+ * leaderboard decides to update, then it'll be updated with the information saved to MongoDB.
  * @Author: Andrew-Skevington-Olivera
  * @Date: 4-3-2023
  */
@@ -28,7 +29,9 @@ import java.util.ArrayList;
 
 
 
-
+/**
+ * 
+ */
 public class Faculty implements Task{
 
     private ArrayList<String> facultyNames;

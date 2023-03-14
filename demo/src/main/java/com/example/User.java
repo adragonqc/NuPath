@@ -64,17 +64,19 @@ public class User {
      * @param username
      * @param password
      */
-    public User(String displayName, String username, String password){
+    public User(String displayName, String username, String password, String contactInformation){
 
         this.displayName = displayName;
         this.username = username;
         this.password = password;
+        this.contactInformation = contactInformation;
         this.permissionLevel = "1";
 
         saveInformation();  //Only saves information when User is initialized
         MongoCollection<Document> leaderboard = mongoDB.returnCollection("Tasks", "Leaderboard");
-        Document document = new Document("Display Name", this.displayName).append("Username", this.username).append("Dorm", "False")
-        .append("Class", "False").append("Facilities", "False").append("Faculty", "False").append("Food", "False");
+        Document document = new Document("Points", "0").append("Display Name", this.displayName).append("Username", this.username)
+        .append("Dorm", "False").append("Class", "False").append("Facilities", "False")
+        .append("Faculty", "False").append("Food", "False");
         leaderboard.insertOne(document);
     }
 
@@ -110,9 +112,25 @@ public class User {
     }
 
     public void addImgToPhotos(String fileName){
-        //Get PhotoGallery db array and convert it to arraylist, then add file
         this.photoGallery.add( createImg(fileName) );
-        saveInformation(); //Change this to be update information instead
+        ArrayList<String> stringPhotoGallery = new ArrayList<>();
+
+        for(BufferedImage img : photoGallery){
+            String base64 = imageToBase64String(img);
+            stringPhotoGallery.add(base64);
+        }
+
+        MongoCollection<Document> collection = mongoDB.returnCollection("UserDatabase", "Users");
+
+        for(Document doc: collection.find() ){
+            if( username.compareTo( doc.getString("Username") ) == 0){
+                String oldVar = doc.getString("Photo Gallery");
+                Document query = new Document("Photo Gallery", oldVar);
+                Bson updates = Updates.combine(Updates.set("Photo Gallery", stringPhotoGallery) );
+                collection.updateOne(query, updates);
+                break;
+            }
+        }
     }
 
     public void updateAboutMe(String aboutMe){
@@ -195,6 +213,10 @@ public class User {
         return this.facilitiesSlection;
     }
 
+    public ArrayList<BufferedImage> getPhotoGallery(){
+        return photoGallery;
+    }
+
 
 
     /** 
@@ -244,14 +266,14 @@ public class User {
      * converts the image to 64string, then it saves it to "PFP" for database.
      * @param image
      */
-    public void imageToBase64String(BufferedImage image){
+    public String imageToBase64String(BufferedImage image){
 
         String base64String = null;
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
 
         try{
-        ImageIO.write(image, "png", os);
+            ImageIO.write(image, "png", os);
             base64String = Base64.getEncoder().encodeToString(os.toByteArray());
         }
         catch (IOException e){
@@ -260,6 +282,8 @@ public class User {
 
 
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "PFP", base64String);
+
+        return base64String;
 
     }
 
@@ -288,7 +312,7 @@ public class User {
         Document document = new Document("Username", username).append("Password", password).append("Display Name", displayName)
         .append("Contact Information", this.contactInformation).append("Interests", interests).append("Food Selection", foodSelections)
         .append("Faculty Selection", facultySelections).append("Facilities Selection", facilitiesSlection).append("Dorm Selection", dormSelection)
-        .append("About Me", aboutMe).append("PFP", "").append("Permission Level", this.permissionLevel);
+        .append("About Me", aboutMe).append("PFP", pfpString).append("Permission Level", this.permissionLevel).append("Photo Gallery", photoGallery);
 
         userCollection.insertOne(document);
 
@@ -314,7 +338,13 @@ public class User {
             this.dormSelection = doc.getString("Dorm Selection");
             this.aboutMe = doc.getString("About Me");
             this.permissionLevel = doc.getString("Permission Level");
-            this.pfp = base64StringToImg( doc.getString("PFP") );
+            if( doc.getString("PFP") != null){
+                this.pfp = base64StringToImg( doc.getString("PFP") );
+            }
+            else{
+                this.pfp = null;
+            }
+            
         }
     }
 

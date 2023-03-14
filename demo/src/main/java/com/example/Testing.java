@@ -45,7 +45,7 @@ import com.sun.net.httpserver.HttpServer;
 
 public class Testing {
     
-
+  
     public static void main(String[] args) throws ScriptException, IOException{
 
 
@@ -54,92 +54,15 @@ public class Testing {
         dayArray.add(Days.Tuesday);
         dayArray.add(Days.Thursday);
         //Kinda would be annoying to have to have a day[] array made everytime I wanna enter any Days to initialize a new Class()
-        Class softwareEngineering = new Class("Software Engineering", "Tania Roy", "9:00 AM", "10:20 AM", "4/2/2023", "20/5/2023", dayArray );
-        System.out.println(softwareEngineering);
-        System.out.println(softwareEngineering.getName() );
+        //Class softwareEngineering = new Class("Software Engineering", "Tania Roy", "9:00 AM", "10:20 AM", "4/2/2023", "20/5/2023", dayArray );
+        //System.out.println(softwareEngineering);
+        //System.out.println(softwareEngineering.getName() );
         //softwareEngineering.saveClass();
 
-        
-        User newUser = new User("Jacob", "jacobIsCool", "jacob123!");
-        newUser.uploadPFP("142wpm.png");
-        //BufferedImage testingImg = newUser.getPFP();
-        //newUser.imageToBase64String(testingImg);
-        newUser.uploadPFP( "140wpm.png" );
-        //newUser.displayPFP();
-        //newUser.saveInformation();
-        //newUser.saveInformation();
-        UserList currentUsers = new UserList();
-        //currentUsers.addUser(newUser);
+        //Converting string to enum ? Maybe a bunch of switch cases like case:"Monday" return Days.Monday
 
 
-        //Forums forum = new Forums();
-        //forum.updateUserList(currentUsers.getUsersArray() );
-        //forum.addMessage("Test1 !");
-        //forum.addMessage("Testing time !!!");
-
-        //Catalyst testCatalyst = new Catalyst();
-        //testCatalyst.readLink("aaah doesn't matter tbh");
-
-        //saveToMongo testingMongo = new saveToMongo();
-        //testingMongo.testMongo();
-
-        //Dorm testingDorm = new Dorm(newUser);
-        //testingDorm.completeTask();
-
-        //HAM testHAM = new HAM();
-        //testHAM.completeTask();
-
-        Facilities testFacilities = new Facilities(newUser);
-        testFacilities.completeTask();
-
-        //Faculty testFaculty = new Faculty();
-        //testFaculty.completeTask();
-
-        //Classes testClasses = new Classes();
-        //testClasses.completeTask();
-
-
-        //LeaderBoard lbTest = new LeaderBoard();
-        //lbTest.getTasksInformation();
-
-        //MainMenu menu = new MainMenu(newUser);
-        //Webserver webServer = new Webserver(9000);
-
-
-        //HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-        //server.createContext("/echo", new Handler() );
-        //server.start(); 
-
-
-
-        /** 
-        URL url = new URL("https://c8a8c7b8-49ab-4275-818f-c001423f4a63.mock.pstmn.io");
-        URLConnection conn = url.openConnection();
-        conn.setDoInput(true);
-        conn.setDoOutput(true);
-        conn.setUseCaches(false);
-        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-        DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-        String content = "CONTENT=HELLO JSP !&ONEMORECONTENT =HELLO POST !";
-
-        out.writeBytes(content);
-        out.flush();
-        out.close();*/
-
-        //DataInputStream in = new DataInputStream(conn.getInputStream());
-        //String str;
-        //while (null != ((str = in.readUTF()))) {
-        //    System.out.println(str );
-        //}
-        //in.close();
-
-
-
-
-        //Handler test = new Handler();
-        //test.handle( newUser.getDisplayName() );
-
+        Webserver server = new Webserver(80);
 
     }
 
