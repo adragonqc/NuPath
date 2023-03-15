@@ -17,13 +17,6 @@ footer{
     align-content: space-between;
 }
 
-@media only screen and (max-width: 800px){
-    /* if browser window <= 800px then change to column view */
-    footer{
-        flex-direction: column;
-    }
-}
-
 .footer-left, .footer-center, .footer-right{
     padding: 10px;
     margin: 0% 5% 0% 5%; /* top right bottom left */
@@ -35,4 +28,11 @@ footer{
     
     padding-left: 5px;
     padding-right: 5px;
+}
+
+@media only screen and (max-width: 800px){
+    /* if browser window <= 800px then change to column view */
+    footer{
+        flex-direction: column;
+    }
 }
