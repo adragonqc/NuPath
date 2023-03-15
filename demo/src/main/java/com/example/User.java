@@ -128,8 +128,8 @@ public class User {
         }
     }
 
-    public void updateInterests(String interestss){
-        this.interests = interestss;
+    public void updateInterests(String interests){
+        this.interests = interests;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Interests", this.interests);
     }
 
@@ -346,6 +346,7 @@ public class User {
                 this.password = doc.getString("Password");
                 this.contactInformation = doc.getString("Contact Information");
                 this.interests = doc.getString("Interests");
+                this.classes = doc.getString("Classes");
                 this.foodSelections = doc.getString("Food Selection");
                 this.facultySelections = doc.getString("Faculty Selection");
                 this.facilitiesSlection = doc.getString("Facilities Selection");

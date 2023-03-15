@@ -77,15 +77,6 @@ public class Webserver{
     this.server.createContext("/UpdateLeaderboard", new UpdateLeaderBoard() );
     this.server.createContext("/ReturnLBInfo", new ReturnLBInformation() ); //This needs to be fixed and 2d ArrayList should be sent as a response
 
-    
-    //Set new photos to photo gallery
-
-    //Work on returning BufferedImages because that currently isn't working for these 2
-    //Return pfp
-    //Return photo gallery
-
-    
-
 
     this.server.start();
 
