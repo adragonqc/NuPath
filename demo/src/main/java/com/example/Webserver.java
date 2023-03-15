@@ -1,30 +1,23 @@
 package com.example;
 
 /**
- * 
+ * This is the webserver so frontend can request information from backend and then backend can reply, or it 
+ * can complete an action that frontend requests. 
+ * There are multiple different type of contexts for the frontend to use, and all of the classes are there to
+ * complete the action that the frontend wants.
  * @Author: Andrew Skevington-Olivera
  * @Date: 9-3-2023
  */
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import javax.imageio.IIOException;
-
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-
-import java.awt.image.BufferedImage;
 
 //Resource used for setting up the api: https://www.codeproject.com/Tips/1040097/Create-a-Simple-Web-Server-in-Java-HTTP-Server
 //2nd website: http://www.java2s.com/Code/Java/Network-Protocol/MinimalHTTPServerbyusingcomsunnethttpserverHttpServer.htm
@@ -43,11 +36,13 @@ public class Webserver{
     this.port = port;
     this.server = HttpServer.create( new InetSocketAddress(this.port), 0);
 
-
+    //These are all of the contexts for the frontend to use to communicate to the backend that it needs something
+    //then the backend fulfills it and replies with a message to notify frontend that the action has been completed.
     this.server.createContext("/Ping", new IndexHandler() );
     this.server.createContext("/CreateNewUser", new CreateUser( this.users ) );
     this.server.createContext("/CreateOldUser", new Login( this.users) );
     this.server.createContext("/Logout", new Logout( this.users) );
+    this.server.createContext("/GetAllUserNames", new GetAllUsernames( this.users ) );
     this.server.createContext("/LikedFoods", new AddHAMFood( this.users) );
     this.server.createContext("/SelectedFaculty", new AddFaculty( this.users) );
     this.server.createContext("/LikedFacilities", new AddFacilities( this.users) );
@@ -75,7 +70,7 @@ public class Webserver{
     this.server.createContext("/ReturnCatalystNotes", new ReturnCatalystNotes( this.users) );
     this.server.createContext("/ReturnPhotoGallery", new ReturnPhotoGallery( this.users) );
     this.server.createContext("/UpdateLeaderboard", new UpdateLeaderBoard() );
-    this.server.createContext("/ReturnLBInfo", new ReturnLBInformation() ); //This needs to be fixed and 2d ArrayList should be sent as a response
+    this.server.createContext("/ReturnLBInfo", new ReturnLBInformation() ); 
 
 
     this.server.start();
@@ -88,6 +83,12 @@ public class Webserver{
   }
 
 
+  /**
+   * This is for query from the frontend so they know the information to send
+   * to complete the context that they want completed.
+   * @param query
+   * @return
+   */
   public static Map<String, String> queryToMap(String query) {
     if(query == null) {
         return null;
@@ -134,10 +135,7 @@ class GetAllUsernames implements HttpHandler{
 
     String listUsernames = newUsersList.returnAllUserNames();
 
-    //The username is the token being sent back to the frontend to grab the information from the 
-    //users on the website for more information requests.
-    //Should probably be changed to something more secure, but that's for later.
-    String response = String.valueOf(listUsernames);
+    String response = listUsernames;
     exchange.sendResponseHeaders(200, response.length());
     exchange.getResponseBody().write(response.getBytes());
     exchange.getResponseBody().close();

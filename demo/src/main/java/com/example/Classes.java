@@ -1,7 +1,8 @@
 package com.example;
 
 /**
- * 
+ * This is to update ClassSelection collection, so that leaderboard can collect the information to update
+ * leaderboard collection with.
  * @Author: Andrew-Skevington-Olivera
  * @Date: 4-3-2023
  */
@@ -9,22 +10,10 @@ package com.example;
 
 
 
- 
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.ConnectionString;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.bson.Document;
-import org.bson.types.ObjectId;
 
 
 public class Classes implements Task{
@@ -39,14 +28,6 @@ public class Classes implements Task{
     
     public void addClasses(String classPicked){
         this.classSelected = classPicked;
-    }
-
-
-    //This'll somehow convert the information in Class to be added to the Calendar 
-    //Prob use how events were done in project 1 but using Days enums instead to keep
-    //adding classes throughout a time period
-    public void addClassesToCalendar(){
-
     }
 
 

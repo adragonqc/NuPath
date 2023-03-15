@@ -1,41 +1,21 @@
 package com.example;
 
 /*
- * 
+ * This is for webserver, so everything can be ran through here except for a couple of the classes that 
+ * can be ran on their own like leaderboard. It'll update all of the tasks that need updating, along with 
+ * storing all of the users within an array to grab their information for the webserver.
  * @Author: Andrew-Skevington-Olivera
  * @Date: 4-3-2023
  */
 
 
-//Do I even need this when I can access users one by one and its done by login information?
-//Maybe to save all of them but I can do that when user has any change....
-//Aaah this could prob be used for multiple users interacting w/ the website at once ? Yeee
-//has all the users that're currently up, then displays only this user in the list to them
-//and one main section instead of having it go one by one in the main class
 
 import java.util.ArrayList;
 
 import org.bson.Document;
-import org.bson.conversions.Bson;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.ConnectionString;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Projections;
-import com.mongodb.client.model.Updates;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import org.bson.Document;
-import org.bson.types.ObjectId;
 
 public class UserList {
     
@@ -65,7 +45,7 @@ public class UserList {
         MongoCollection<Document> userCollection = mongoDB.returnCollection("UserDatabase", "Users");
 
         for(Document doc : userCollection.find() ){
-            allUserNames += doc.getString("Username") + " ";
+            allUserNames += doc.getString("Username") + ", ";
         }
 
         return allUserNames;

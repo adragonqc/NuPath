@@ -1,39 +1,24 @@
 package com.example;
 
 /**
- * 
+ * This is the leaderboard where the information can be updated with the 5 tasks within the Task Database, then updated
+ * to the leaderboard collection where it'll be returned in point order.
  * @Author: Andrew-Skevington-Olivera
  * @Date: 4-3-2023
  */
 
 
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.ConnectionString;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Projections;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
 
 import org.bson.Document;
-import org.bson.types.ObjectId;
 
 
-/**
- * I can probably save the different leaderboard tasks as .txt files and then every minute or something 
- * like that I can update the lb by reading those .txt files and extracting the necessary information from them 
- */
+
 
 public class LeaderBoard {
     
@@ -109,12 +94,11 @@ public class LeaderBoard {
             String username = doc.getString("Username");
             userPts.add(username);
             String strPts = doc.getString("Points");
-            //int pts = Integer.valueOf(strPts);
             userPts.add(strPts);
             lbInformation.add( userPts );
         }
 
-        //How to sort a 2d ArrayList Object....
+        //Sorts  the 2d array object
         Collections.sort( lbInformation, new Comparator< ArrayList<String> >() {
 
             @Override

@@ -1,7 +1,9 @@
 package com.example;
 
 /**
- * 
+ * This is the user profile for whenever a user logins into their acct and its stored here.
+ * It stores information like displayname, username, password, about me, interests, photo gallery, etc.
+ * The information can be updated and retrieved.
  * @Author: Andrew-Skevington-Olivera
  * @Date: 4-3-2023
  */
@@ -9,19 +11,9 @@ package com.example;
 
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.ConnectionString;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
-import com.mongodb.client.result.UpdateResult;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -29,15 +21,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.apache.commons.io.FileUtils;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.bson.types.ObjectId;
 
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -47,15 +34,15 @@ import java.awt.*;
 
 
 /**
- * 
+ * This is the class user where all of the return and get functions are stored inside of it 
  */
 public class User {
     
     private String displayName, username, password, interests, foodSelections, facultySelections, facilitiesSlection, dormSelection, 
-    aboutMe, pfpString, permissionLevel, contactInformation, catalystNotes, classes;
-    private BufferedImage pfp;
-    private ArrayList<String> photoGallery = new ArrayList<>();
-    private GetDbCollection mongoDB = new GetDbCollection();
+    aboutMe, pfpString, permissionLevel, contactInformation, catalystNotes, classes;    //All information stored like this
+    private BufferedImage pfp;  //Can displayPFP for testing
+    private ArrayList<String> photoGallery = new ArrayList<>(); //Stores Photos
+    private GetDbCollection mongoDB = new GetDbCollection();    //This is to access mongoDB collections 
 
 
     /**
@@ -82,7 +69,7 @@ public class User {
 
 
    /**
-    * 
+    * Constructor for when user is logging in and User class is being updated with the information inside of MongoDB
     * @param username
     * @param password
     */
@@ -91,26 +78,46 @@ public class User {
     }
 
 
+    /**
+     * Updates display name by going to MongoDB UserDatabase db, then to Users Collection
+     * @param name
+     */
     public void updateDisplayName(String name){
         this.displayName = name;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Display Name", this.displayName);
     }
 
+    /**
+     * Updates password by going to MongoDB UserDatabase db, then to Users Collection
+     * @param password
+     */
     public void updatePassword(String password){
         this.password = password;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Password", this.password);
     }
 
+    /**
+     * Updates PFP by going to MongoDB UserDatabase db, then to Users Collection
+     * @param fileName
+     */
     public void uploadPFP(String fileName){
         this.pfpString = fileName;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "PFP", this.pfpString);
     }
 
+    /**
+     * Updates Contact Information by going to MongoDB UserDatabase db, then to Users Collection
+     * @param contactInfo
+     */
     public void updateContactInfo(String contactInfo){
         this.contactInformation = contactInfo;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Contact Information", this.contactInformation);
     }
 
+    /**
+     * Adds an image to Photo Gallery by going to MongoDB UserDatabase db, then to Users Collection
+     * @param fileName
+     */
     public void addImgToPhotos(String fileName){
 
         photoGallery.add( fileName );
@@ -128,116 +135,205 @@ public class User {
         }
     }
 
+    /**
+     * Updates interests by going to MongoDB UserDatabase db, then to Users Collection
+     * @param interests
+     */
     public void updateInterests(String interests){
         this.interests = interests;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Interests", this.interests);
     }
 
-    public void updateCatalystNote(String notes){
-        this.catalystNotes = notes;
+    /**
+     * Updates catalyst notes by going to MongoDB UserDatabase db, then to Users Collection
+     * @param catalystNotes
+     */
+    public void updateCatalystNote(String catalystNotes){
+        this.catalystNotes = catalystNotes;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Catalyst Notes", this.catalystNotes);
     }
 
+    /**
+     * Updates about me by going to MongoDB UserDatabase db, then to Users Collection
+     * @param aboutMe
+     */
     public void updateAboutMe(String aboutMe){
         this.aboutMe = aboutMe;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "About Me", this.aboutMe);
     }
 
+    /**
+     * Sets food selection for user and HAM that'll be sent to Tasks database.
+     * @param foodSelection
+     */
     public void setFoodSelection(String foodSelection){
         this.foodSelections = foodSelection;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Food Selection", this.foodSelections);
     }
 
+    /**
+     * Sets faculty selection for user and Faculty that'll be sent to Tasks database.
+     * @param facultySelection
+     */
     public void setFacultySelection(String facultySelection){
         this.facultySelections = facultySelection;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Faculty Selection", this.facultySelections);
     }
 
+    /**
+     * Sets Facilities selection for user and Facilities that'll be sent to Tasks database.
+     * @param facilitiesSelection
+     */
     public void setFacilitiesSelection(String facilitiesSelection){
         this.facilitiesSlection = facilitiesSelection;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Facilities Selection", this.facilitiesSlection);
     }
 
+    /**
+     * Sets dorm selection for user and Dorm that'll be sent to Tasks database.
+     * @param dormSelection
+     */
     public void setDormSelection(String dormSelection){
         this.dormSelection = dormSelection;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Dorm Selection", this.dormSelection);
     }
 
+    /**
+     * Sets classes for user and Classes that'll be sent to Tasks database.
+     * @param selectedClass
+     */
     public void setClasses(String selectedClass){
         this.classes = selectedClass;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Class selection", this.classes);
     }
 
+    /**
+     * Updates permission level so user can see different things based on it 
+     * @param permissionLevel
+     */
     public void updatePermissionLevel(String permissionLevel){
         this.permissionLevel = permissionLevel;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Permission Level", this.permissionLevel);
     }
 
+    /**
+     * Returns displayname
+     * @return
+     */
     public String getDisplayName(){
         return this.displayName;
     }
 
+    /**
+     * Returns username
+     * @return
+     */
     public String getUsername(){
         return this.username;
     }
 
+    /**
+     * Returns aboutme
+     * @return
+     */
     public String getAboutMe(){
         return this.aboutMe;
     }
 
+    /**
+     * Returns pfp
+     * @return
+     */
     public String getPFP(){
         return this.pfpString;
     }
 
+    /**
+     * Returns interests
+     * @return
+     */
     public String getInterests(){
         return this.interests;
     }
 
+    /**
+     * Returns contact information
+     * @return
+     */
     public String getContactInformation(){
         return this.contactInformation;
     }
 
+    /**
+     * Returns permission level
+     * @return
+     */
     public String getPermissionLevel(){
         return this.permissionLevel;
     }
 
+    /**
+     * Returns food selection
+     * @return
+     */
     public String getFoodSelection(){
         return this.foodSelections;
     }
 
+    /**
+     * Returns dorm selection
+     * @return
+     */
     public String getDormSelection(){
         return this.dormSelection;
     }
 
+    /**
+     * Returns faculty selection
+     * @return
+     */
     public String getFacultySelection(){
         return this.facultySelections;
     }
 
+    /**
+     * Returns facilities selection
+     * @return
+     */
     public String getFacilitiesSelection(){
         return this.facilitiesSlection;
     }
 
+    /**
+     * Returns classes selection
+     * @return
+     */
     public String getClassesSelection(){
         return this.classes;
     }
 
+    /**
+     * Returns photo gallery
+     * @return
+     */
     public ArrayList<String> getPhotoGallery(){
         return photoGallery;
     }
 
+    /**
+     * Returns catalyst notes
+     * @return
+     */
     public String getCatalystNotes(){
         return this.catalystNotes;
     }
 
 
-
-    /** 
-    //Remove this later, prob isnt needed
-    public String getPFPString(){
-        return this.pfpString;
-    }*/
-
-
+    /**
+     * Creates a BufferedImage given a fileLocation
+     * @param fileName
+     * @return
+     */
     public BufferedImage createImg(String fileName){
 
         try{
@@ -252,7 +348,9 @@ public class User {
         return null;
     }
 
-
+    /**
+     * Displays the PFP
+     */
     public void displayPFP(){
 
         Graphics2D g = (Graphics2D) pfp.getGraphics();
