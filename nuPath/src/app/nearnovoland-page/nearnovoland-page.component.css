@@ -29,11 +29,12 @@
 
     /* if browser window <= 800px then change to dropdown */
     #button-container{
-
+        width: 100%;
+        flex-direction: row;
     }
 
     #big-map{
-        width: 90%;
+        width: 95%;
     }
     
 }
