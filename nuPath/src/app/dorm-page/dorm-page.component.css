@@ -10,8 +10,10 @@ h3 {
     text-align: center;
 }
 
-div {
-    text-align: center;
+
+
+.flex-row{
+    justify-content: space-around;
 }
 
 /* Table formatting */
