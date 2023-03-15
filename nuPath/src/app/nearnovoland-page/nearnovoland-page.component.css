@@ -1,19 +1,39 @@
-#button-container, #big-map{
+#container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    
 
+    height: 500px;
 }
 
 #button-container{
+    width: 20%;
+    
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    
 }
 
 #big-map{
-    width: 60%;
-    height: 50%;
+    width: 80%;
+    height: 95%;
 }
 
 @media only screen and (max-width: 800px){
     /* if browser window <= 800px then change to column view */
+    #container{
+        flex-direction: column;
+    }
+
+    /* if browser window <= 800px then change to dropdown */
+    #button-container{
+
+    }
+
+    #big-map{
+        width: 90%;
+    }
     
 }
