@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
@@ -6,20 +6,17 @@ import { Router, NavigationEnd } from '@angular/router';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
 
   activeLink = '';
   showDropdown = false;
   currentUser = sessionStorage.getItem('currentUser');
+  isLoggedIn = false;
 
   constructor(private elementRef: ElementRef, private router: Router) {}
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.updateActiveLink();
-      }
-    });
+    this.isLoggedIn = (sessionStorage.getItem('isLoggedIn') == 'true')
   }
 
   updateActiveLink() {

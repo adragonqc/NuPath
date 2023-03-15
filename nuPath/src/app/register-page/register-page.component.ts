@@ -131,10 +131,21 @@ export class RegisterPageComponent {
             console.error('Error:', error);
             this.errorMessage = 'Something went wrong, please try again';
           });
+
+          // set catalystNotes to " "
+          fetch(ip + "UpdateCatalystNotes?Username=" + this.username + "&Notes=" + " ", {
+            method: "POST",
+            body: JSON.stringify({
+              username: this.username
+            })
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            this.errorMessage = 'Something went wrong, please try again';
+          });
           
 
           this.router.navigate(['/login'])
-          //window.location.href = `/profile/${this.username}`;
         } else {
           this.errorMessage = 'Registration failed';
         }

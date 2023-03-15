@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AcademicPageComponent } from './academic-page/academic-page.component';
 import { CalendarPageComponent } from './calendar-page/calendar-page.component';
 import { CatalystPageComponent } from './catalyst-page/catalyst-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -17,30 +16,33 @@ import { PackinglistPageComponent } from './packinglist-page/packinglist-page.co
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
+import { LogoutComponent } from './logout/logout.component';
+import { AuthGuard } from './auth.guard';
+import { LoginGuard } from './login.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'home', component: HomePageComponent },
-  { path: 'catalyst', component: CatalystPageComponent },
-  { path: 'leaderboard', component: LeaderboardPageComponent },
-  { path: 'nulife', component: NulifePageComponent },
-  { path: 'calendar', component: CalendarPageComponent },
-  { path: 'nearnovoland', component: NearNovolandPageComponent },
-  { path: 'socials', component: SocialsPageComponent },
-  { path: 'academic', component: AcademicPageComponent },
-  { path: 'novoland', component: NovolandPageComponent },
-  { path: 'profile/:username', component: ProfilePageComponent },
-  { path: 'dorms', component: DormPageComponent },
-  { path: 'facilities', component: FacilitiesPageComponent },
-  { path: 'packinglist', component: PackinglistPageComponent },
-  { path: 'login', component: LoginPageComponent },
-  { path: 'register', component: RegisterPageComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: 'home', component: HomePageComponent, canActivate: [AuthGuard]},
+  { path: 'catalyst', component: CatalystPageComponent, canActivate: [AuthGuard] },
+  { path: 'leaderboard', component: LeaderboardPageComponent, canActivate: [AuthGuard] },
+  { path: 'nulife', component: NulifePageComponent, canActivate: [AuthGuard] },
+  { path: 'calendar', component: CalendarPageComponent, canActivate: [AuthGuard] },
+  { path: 'nearnovoland', component: NearNovolandPageComponent, canActivate: [AuthGuard] },
+  { path: 'socials', component: SocialsPageComponent, canActivate: [AuthGuard] },
+  { path: 'novoland', component: NovolandPageComponent, canActivate: [AuthGuard] },
+  { path: 'profile/:username', component: ProfilePageComponent, canActivate: [AuthGuard] },
+  { path: 'dorms', component: DormPageComponent, canActivate: [AuthGuard] },
+  { path: 'facilities', component: FacilitiesPageComponent, canActivate: [AuthGuard] },
+  { path: 'packinglist', component: PackinglistPageComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginPageComponent, canActivate: [LoginGuard] },
+  { path: 'register', component: RegisterPageComponent, canActivate: [LoginGuard] },
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
 
 
   //nulife page routing
-  { path: 'dorms', component: DormPageComponent, /*outlet: "nulife-contents"*/},
-  { path: 'packinglist', component: PackinglistPageComponent, /*outlet: "nulife-contents"*/},
-  { path: 'facilities', component: FacilitiesPageComponent, /*outlet: "nulife-contents"*/},
+  { path: 'dorms', component: DormPageComponent, canActivate: [AuthGuard] /*outlet: "nulife-contents"*/},
+  { path: 'packinglist', component: PackinglistPageComponent, canActivate: [AuthGuard] /*outlet: "nulife-contents"*/},
+  { path: 'facilities', component: FacilitiesPageComponent, canActivate: [AuthGuard] /*outlet: "nulife-contents"*/},
   { path: '**', component: PageNotFoundComponent }  //always keep at end
   
 ];

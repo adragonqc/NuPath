@@ -16,7 +16,6 @@ import { LeaderboardPageComponent } from './leaderboard-page/leaderboard-page.co
 import { NulifePageComponent } from './nulife-page/nulife-page.component';
 import { CalendarPageComponent } from './calendar-page/calendar-page.component';
 import { NearNovolandPageComponent } from './nearnovoland-page/nearnovoland-page.component';
-import { AcademicPageComponent } from './academic-page/academic-page.component';
 import { SocialsPageComponent } from './socials-page/socials-page.component';
 import { NovolandPageComponent } from './novoland-page/novoland-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
@@ -31,6 +30,8 @@ import { ForumComponent } from './forum/forum.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LogoutComponent } from './logout/logout.component';
+import { AuthGuard } from './auth.guard';
 
 
 @NgModule({
@@ -43,7 +44,6 @@ import { HttpClientModule } from '@angular/common/http';
     NulifePageComponent,
     CalendarPageComponent,
     NearNovolandPageComponent,
-    AcademicPageComponent,
     SocialsPageComponent,
     NovolandPageComponent,
     ProfilePageComponent,
@@ -59,7 +59,8 @@ import { HttpClientModule } from '@angular/common/http';
     FacilitiesPageComponent,
     
     ForumComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +73,7 @@ import { HttpClientModule } from '@angular/common/http';
     NgxFileDropModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

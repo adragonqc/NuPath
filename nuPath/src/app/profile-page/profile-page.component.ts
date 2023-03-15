@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./profile-page.component.css']
 })
 export class ProfilePageComponent implements OnInit {
+  currentUser!: string;
   username!: string | null;
   displayName!: string;
   contactInformation!: string;
@@ -18,16 +19,30 @@ export class ProfilePageComponent implements OnInit {
   dormSelection!: string;
   aboutMe!: string;
   profilePicture!: string;
+  photos!: string[];
+
+  originalDisplayName = '';
+  editingDisplayName = false;
+
+  originalInterests = '';
+  editingInterests = false;
+  
+  originalAboutMe = '';
+  editingAboutMe = false;
+
+  ip = "http://35.188.8.151:80/";
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
+    this.currentUser = sessionStorage.getItem('currentUser') as string;
+
     this.username = this.route.snapshot.paramMap.get('username');
 
-    const ip = "http://35.188.8.151:80/"
+    
 
     // check for existing user
-    fetch(ip + "ReturnUsername?Username=" + this.username, {
+    fetch(this.ip + "ReturnUsername?Username=" + this.username, {
       method: "POST",
       body: JSON.stringify({
         username: this.username
@@ -40,10 +55,9 @@ export class ProfilePageComponent implements OnInit {
       return response.text();
     })
     .then((content) => {
-      console.log(content);
       if(content === this.username) {
             // set displayName
-        fetch(ip + "ReturnDisplayName?Username=" + this.username, {
+        fetch(this.ip + "ReturnDisplayName?Username=" + this.username, {
           method: "POST",
           body: JSON.stringify({
             username: this.username
@@ -63,7 +77,7 @@ export class ProfilePageComponent implements OnInit {
         });
 
         // set contactInformation
-        fetch(ip + "ReturnContactInformation?Username=" + this.username, {
+        fetch(this.ip + "ReturnContactInformation?Username=" + this.username, {
           method: "POST",
           body: JSON.stringify({
             username: this.username
@@ -83,7 +97,7 @@ export class ProfilePageComponent implements OnInit {
         });
 
         // set Interests 
-        fetch(ip + "ReturnInterests?Username=" + this.username, {
+        fetch(this.ip + "ReturnInterests?Username=" + this.username, {
           method: "POST",
           body: JSON.stringify({
             username: this.username
@@ -103,7 +117,7 @@ export class ProfilePageComponent implements OnInit {
         });
 
         // set Food
-        fetch(ip + "ReturnFood?Username=" + this.username, {
+        fetch(this.ip + "ReturnFood?Username=" + this.username, {
           method: "POST",
           body: JSON.stringify({
             username: this.username
@@ -123,7 +137,7 @@ export class ProfilePageComponent implements OnInit {
         });
 
         // set Faculty
-        fetch(ip + "ReturnFaculty?Username=" + this.username, {
+        fetch(this.ip + "ReturnFaculty?Username=" + this.username, {
           method: "POST",
           body: JSON.stringify({
             username: this.username
@@ -143,7 +157,7 @@ export class ProfilePageComponent implements OnInit {
         });
 
         // set Facilities
-        fetch(ip + "ReturnFacilities?Username=" + this.username, {
+        fetch(this.ip + "ReturnFacilities?Username=" + this.username, {
           method: "POST",
           body: JSON.stringify({
             username: this.username
@@ -163,7 +177,7 @@ export class ProfilePageComponent implements OnInit {
         });
 
         //set Dorm Selection
-        fetch(ip + "ReturnDorm?Username=" + this.username, {
+        fetch(this.ip + "ReturnDorm?Username=" + this.username, {
           method: "POST",
           body: JSON.stringify({
             username: this.username
@@ -183,7 +197,7 @@ export class ProfilePageComponent implements OnInit {
         });
 
         // set AboutMe
-        fetch(ip + "ReturnAboutMe?Username=" + this.username, {
+        fetch(this.ip + "ReturnAboutMe?Username=" + this.username, {
           method: "POST",
           body: JSON.stringify({
             username: this.username
@@ -203,7 +217,7 @@ export class ProfilePageComponent implements OnInit {
         });
 
         // set PFP
-        fetch(ip + "ReturnPFP?Username=" + this.username, {
+        fetch(this.ip + "ReturnPFP?Username=" + this.username, {
           method: "POST",
           body: JSON.stringify({
             username: this.username
@@ -234,35 +248,87 @@ export class ProfilePageComponent implements OnInit {
   }
 
   getProfilePicture(): string {
+    var dataURI = "";
     // convert the base64 string to a data URI
-    const dataURI = `data:image/png;base64,${this.profilePicture}`;
+    if(!this.profilePicture.startsWith("data:image/png;base64")){
+      dataURI = `data:image/png;base64,${this.profilePicture}`;
+    } else {
+      dataURI = this.profilePicture;
+    }
   
     return dataURI;
   }
 
-  handleProfilePictureChange(event: any): void {
+  onProfilePictureSelected(event: any) {
     const file = event.target.files[0];
+  
+    // Convert the selected file to a base64 string
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      // set the base64 string of the uploaded image to the component property for the profile picture
-      if(reader.result != null) {
-        this.profilePicture = reader.result.toString();
-      }
+      const base64String = reader.result as string;
+      this.profilePicture = base64String;
+  
+      // Code to upload the base64 string to the server and update the profile picture
+      fetch(this.ip + "UploadPFP?Username=" + this.username + "&NewPFPFile=" + this.profilePicture)
+      .then(() => {
+        window.location.reload();
+      })
+
+      event.target.style.display = 'none';
     };
   }
 
-  saveCanvas(): void {
-    // get the canvas element
-    const canvas = document.querySelector('canvas') as HTMLCanvasElement;
-    // get the image data as a base64 string
-    const base64Image = canvas.toDataURL("image/png");
-    // create an anchor element with the image data as the href attribute
-    const downloadLink = document.createElement("a");
-    downloadLink.href = base64Image;
-    downloadLink.download = "canvas-image.png";
-    // simulate a click on the anchor element to download the image
-    downloadLink.click();
+  onEditProfilePictureClick() {
+    document.getElementById('profile-picture-input')?.click();
   }
   
+  
+  editInterests() {
+    this.originalInterests = this.interests;
+    this.editingInterests = true;
+  }
+
+  saveInterests() {
+    // Update interests in your database or API
+    fetch(this.ip + "UpdateInterests?Username=" + this.username + "&Interest=" + this.interests);
+    this.editingInterests = false;
+  }
+
+  cancelInterests() {
+    this.interests = this.originalInterests;
+    this.editingInterests = false;
+  }
+
+  editDisplayName() {
+    this.originalDisplayName = this.displayName;
+    this.editingDisplayName = true;
+  }
+
+  saveDisplayName() {
+    // Update DisplayName in your database or API
+    fetch(this.ip + "UpdateDisplayName?Username=" + this.username + "&NewDisplayName=" + this.displayName);
+    this.editingDisplayName = false;
+  }
+
+  cancelDisplayName() {
+    this.displayName = this.originalDisplayName;
+    this.editingDisplayName = false;
+  }
+
+  editAboutMe() {
+    this.originalAboutMe = this.aboutMe;
+    this.editingAboutMe = true;
+  }
+
+  saveAboutMe() {
+    fetch(this.ip + "UpdateAboutme?Username=" + this.username + "&NewAboutme=" + this.aboutMe);
+    this.editingAboutMe = false;
+  }
+
+  cancelAboutMe() {
+    this.aboutMe = this.originalAboutMe;
+    this.editingAboutMe = false;
+  }
 }
+

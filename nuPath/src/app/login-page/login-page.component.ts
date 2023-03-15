@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavBarComponent } from '../nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-login-page',
@@ -14,7 +13,7 @@ export class LoginPageComponent {
 
   constructor(private router: Router) {}
 
-  onSubmit() {
+  onSubmit() { 
 
     const ip = "http://35.188.8.151:80/"
 
@@ -243,6 +242,7 @@ export class LoginPageComponent {
           });
 
           **/
+          sessionStorage.setItem('isLoggedIn', 'true')
           this.router.navigate(['/home'])
           .then(() => {
             window.location.reload();
