@@ -1,8 +1,7 @@
 <div class="container">
   <iframe class="catalyst-iframe" [src]="iframeUrl"></iframe>
-
-  <div>
-    <h4>Notes:</h4>
-    <textarea class="notes-textbox" id="noteInput"></textarea>
+  <div class="notes-wrapper">
+    <textarea class="notes-textbox" placeholder="Enter your notes here" [(ngModel)]="notes"></textarea>
+    <button class="save-notes" (click)="saveNotes()">Save Notes</button>
   </div>
 </div>

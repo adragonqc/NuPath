@@ -1,23 +1,74 @@
 .profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px;
+}
+
+.profile-picture {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.profile-picture-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.profile-picture:hover .profile-picture-hover {
+  opacity: 1;
+}
+
+.profile-picture-hover p {
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+  margin: 0;
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-details {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.display-name {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.contact-information {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.interests {
+  font-size: 14px;
+}
+
+.about-me {
+  font-size: 14px;
+}
+  
+  .canvas-container {
+    width: 75%;
+    height: 50vh;
   }
-  
-  .profile-picture {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-  }
-  
-  .display-name {
-    margin-top: 20px;
-    font-size: 32px;
-  }
-  
-  .email, .hometown {
-    margin-top: 10px;
-    font-size: 24px;
-  }
-  
-  
