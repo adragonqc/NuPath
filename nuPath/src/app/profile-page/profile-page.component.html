@@ -1,15 +1,37 @@
 <div class="profile-container">
-    <img class="profile-picture" src="https://i.pinimg.com/236x/cc/50/ca/cc50cada4658669e26f818405cc7016b.jpg" alt="User Profile Picture">
-    <h1 class="display-name">John Doe</h1>
-    <p class="email">johndoe@email.com</p>
-    <p class="hometown">Sarasota, FL</p>
-    <div class="interests-container">
-      <h2>Interests</h2>
-      <ul>
-        <li>Cooking</li>
-        <li>Photography</li>
-        <li>Hiking</li>
-      </ul>
-    </div>
+  <div class="profile-picture">
+    <label for="profile-picture-input">
+      <img [src]="getProfilePicture()" alt="Profile Picture">
+      <div class="profile-picture-hover" *ngIf="this.username == this.currentUser" (click)="onEditProfilePictureClick()">
+        <p>Edit Profile Picture</p>
+      </div>
+    </label>
+    <input *ngIf="this.username == this.currentUser" id="profile-picture-input" type="file" style="display:none;" (change)="onProfilePictureSelected($event)">
   </div>
-  
+  <div class="profile-details">
+    <textarea *ngIf="editingDisplayName" class="display-name-input" [(ngModel)]="displayName"></textarea>
+    <h2 class="display-name" *ngIf="!editingDisplayName" >{{ displayName }}
+    <button *ngIf="!editingDisplayName && this.username == this.currentUser" class="edit-button" (click)="editDisplayName()">Edit</button>
+    </h2>
+    <button *ngIf="editingDisplayName && this.username == this.currentUser" class="save-button" (click)="saveDisplayName()">Save</button>
+    <button *ngIf="editingDisplayName && this.username == this.currentUser" class="cancel-button" (click)="cancelDisplayName()">Cancel</button>
+    <p class="contact-information">Email: {{ contactInformation }}</p>
+    <h3>Interests
+      <button *ngIf="!editingInterests && this.username == this.currentUser" class="edit-button" (click)="editInterests()">Edit</button>
+      <button *ngIf="editingInterests && this.username == this.currentUser" class="save-button" (click)="saveInterests()">Save</button>
+      <button *ngIf="editingInterests && this.username == this.currentUser" class="cancel-button" (click)="cancelInterests()">Cancel</button>
+    </h3>
+    <p *ngIf="!editingInterests" class="interests">{{ interests }}</p>
+    <textarea *ngIf="editingInterests" class="interests-input" [(ngModel)]="interests"></textarea>
+    <h3>About Me
+      <button *ngIf="!editingAboutMe && this.username == this.currentUser" class="edit-button" (click)="editAboutMe()">Edit</button>
+      <button *ngIf="editingAboutMe && this.username == this.currentUser" class="save-button" (click)="saveAboutMe()">Save</button>
+      <button *ngIf="editingAboutMe && this.username == this.currentUser" class="cancel-button" (click)="cancelAboutMe()">Cancel</button>
+    </h3>
+    <p *ngIf="!editingAboutMe" class="about-me">{{ aboutMe }}</p>
+    <textarea *ngIf="editingAboutMe" class="about-me-input" [(ngModel)]="aboutMe"></textarea>
+  </div>
+  <div class="canvas-container" *ngIf="this.username == this.currentUser">
+    <app-canvas></app-canvas>
+  </div>
+</div>

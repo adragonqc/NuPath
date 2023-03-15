@@ -1,0 +1,15 @@
+<div class="canvas-container">
+    <canvas #canvas
+            (mousedown)="startDrawing($event)"
+            (mousemove)="draw($event)"
+            (mouseup)="stopDrawing()"
+            (mouseleave)="stopDrawing()"></canvas>
+    <div class="controls">
+      <button class="color black" (click)="setColor('black')"></button>
+      <button class="color red" (click)="setColor('red')"></button>
+      <button class="color green" (click)="setColor('green')"></button>
+      <button class="color blue" (click)="setColor('blue')"></button>
+      <button class="color eraser" (click)="setColor('white')"></button>
+      <button class="clear" (click)="clearCanvas()">Clear</button>
+    </div>
+  </div>
