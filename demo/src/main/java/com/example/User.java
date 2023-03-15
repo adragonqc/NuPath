@@ -52,10 +52,10 @@ import java.awt.*;
 public class User {
     
     private String displayName, username, password, interests, foodSelections, facultySelections, facilitiesSlection, dormSelection, 
-    aboutMe, pfpString, permissionLevel, contactInformation;
+    aboutMe, pfpString, permissionLevel, contactInformation, catalystNotes;
     private Classes classes;
     private BufferedImage pfp;
-    private List<Object> photoGallery = new ArrayList<>();
+    private ArrayList<String> photoGallery = new ArrayList<>();
     private GetDbCollection mongoDB = new GetDbCollection();
 
 
@@ -121,7 +121,7 @@ public class User {
 
         for(Document doc: collection.find() ){
             if( username.compareTo( doc.getString("Username") ) == 0){
-                String oldVar = doc.getString("Photo Gallery");
+                ArrayList<String> oldVar = (ArrayList<String>) doc.get("Photo Gallery");
                 Document query = new Document("Photo Gallery", oldVar);
                 Bson updates = Updates.combine(Updates.set("Photo Gallery", photoGallery) );
                 collection.updateOne(query, updates);
@@ -132,10 +132,12 @@ public class User {
 
     public void updateInterests(String interestss){
         this.interests = interestss;
-        System.out.println();
-        System.out.println("This is the username that is going through and being updated " + this.username );
-        System.out.println();
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Interests", this.interests);
+    }
+
+    public void updateCatalystNote(String notes){
+        this.catalystNotes = notes;
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Catalyst Notes", this.catalystNotes);
     }
 
     public void updateAboutMe(String aboutMe){
@@ -218,8 +220,12 @@ public class User {
         return this.facilitiesSlection;
     }
 
-    public List<Object> getPhotoGallery(){
+    public ArrayList<String> getPhotoGallery(){
         return photoGallery;
+    }
+
+    public String getCatalystNotes(){
+        return this.catalystNotes;
     }
 
 
@@ -317,7 +323,8 @@ public class User {
         Document document = new Document("Username", username).append("Password", password).append("Display Name", displayName)
         .append("Contact Information", this.contactInformation).append("Interests", interests).append("Food Selection", foodSelections)
         .append("Faculty Selection", facultySelections).append("Facilities Selection", facilitiesSlection).append("Dorm Selection", dormSelection)
-        .append("About Me", aboutMe).append("PFP", pfpString).append("Permission Level", this.permissionLevel).append("Photo Gallery", photoGallery);
+        .append("About Me", aboutMe).append("PFP", pfpString).append("Permission Level", this.permissionLevel)
+        .append("Photo Gallery", photoGallery).append("Catalyst Notes", catalystNotes);
 
         userCollection.insertOne(document);
 
@@ -345,6 +352,27 @@ public class User {
                 this.aboutMe = doc.getString("About Me");
                 this.permissionLevel = doc.getString("Permission Level");
                 this.pfpString = doc.getString("PFP");
+                this.catalystNotes = doc.getString("Catalyst Notes");
+
+
+                Object photoGallery2 = doc.get("Photo Gallery");
+                System.out.println();
+                System.out.println( photoGallery2 );
+                System.out.println();
+
+                ArrayList<String> test = (ArrayList<String>) photoGallery2;
+                test.add( "Testing one" );
+                for(String str : test){
+                    System.out.println();
+                    System.out.println(str);
+                    System.out.println();
+                }
+
+                photoGallery2 = (Object) test;
+                System.out.println();
+                System.out.println( photoGallery2 );
+                System.out.println();
+
 
                 //this.photoGallery = (List<Object>) doc.getList(doc, photoGallery.getClass() );
 
@@ -352,6 +380,8 @@ public class User {
             }
             
         }
+
+
     }
 
 

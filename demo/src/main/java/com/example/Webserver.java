@@ -60,6 +60,7 @@ public class Webserver{
     this.server.createContext("/UpdateAboutme", new UpdateAboutMe( this.users ) );
     this.server.createContext("/UpdateContactInformation", new UpdateContactInformation( this.users ) );
     this.server.createContext("/UpdateInterests", new UpdateInterests( this.users ) );
+    this.server.createContext("/UpdateCatalystNotes", new UpdateCatalyst( this.users) );
     this.server.createContext("/AddToPhotoGallery", new AddImgToPhotoGallery( this.users) );
     this.server.createContext("/ReturnUsername", new ReturnUsername( this.users ) );
     this.server.createContext("/ReturnDisplayName", new ReturnDisplayName( this.users ) );
@@ -71,6 +72,7 @@ public class Webserver{
     this.server.createContext("/ReturnFacilities", new ReturnFacilities( this.users ) );
     this.server.createContext("/ReturnFaculty", new ReturnFaculty( this.users ) );
     this.server.createContext("/ReturnContactInfo", new ReturnContactInformation( this.users) ); 
+    this.server.createContext("/ReturnCatalystNotes", new ReturnCatalystNotes( this.users) );
     this.server.createContext("/UpdateLeaderboard", new UpdateLeaderBoard() );
     this.server.createContext("/ReturnLBInfo", new ReturnLBInformation() ); //This needs to be fixed and 2d ArrayList should be sent as a response
 
@@ -482,7 +484,13 @@ class UploadImgToPhotoGallery implements HttpHandler{
     String username = params.get("Username");
     String newImg = params.get("NewImgfile");
     User user = userList.accessUser(username);
+    System.out.println();
+    System.out.println("Breaking before its adding it to photo gallery");
+    System.out.println();
     user.addImgToPhotos(newImg);
+    System.out.println();
+    System.out.println("Breaking after adding it to photo gallery");
+    System.out.println();
 
     String response = "Image was added to Photo Gallery";
     exchange.sendResponseHeaders(200, response.length());
@@ -544,6 +552,32 @@ class UpdateContactInformation implements HttpHandler{
   }
 }
 
+class UpdateCatalyst implements HttpHandler{
+
+  private UserList userList = UserList.getInstance();
+
+  public UpdateCatalyst(UserList users){
+    this.userList = users;
+  }
+
+  public void handle(HttpExchange exchange) throws IOException{
+
+    exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+
+    Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
+
+    String token = params.get("Username");
+    String notes = params.get("Notes");
+    User user = userList.accessUser(token);
+    user.updateCatalystNote(notes);
+
+    String response = notes;
+    exchange.sendResponseHeaders(200, response.length());
+    exchange.getResponseBody().write(response.getBytes());
+    exchange.getResponseBody().close();
+
+  }
+}
 
 class UpdateInterests implements HttpHandler{
 
@@ -670,7 +704,7 @@ class ReturnPhotoGallery implements HttpHandler{
     String token = params.get("Username");
 
     User user = userList.accessUser(token);
-    List<Object> photoGallery = user.getPhotoGallery();
+    ArrayList<String> photoGallery = user.getPhotoGallery();
 
     for(Object obj : photoGallery){
       String response = String.valueOf(obj);
@@ -678,6 +712,30 @@ class ReturnPhotoGallery implements HttpHandler{
       exchange.getResponseBody().write(response.getBytes() );
       exchange.getResponseBody().close();
     }
+  }
+}
+
+class ReturnCatalystNotes implements HttpHandler{
+
+  private UserList userList = UserList.getInstance();
+
+  public ReturnCatalystNotes(UserList users){
+    this.userList = users;
+  }
+
+  public void handle(HttpExchange exchange) throws IOException{
+    exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+
+    Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
+
+    String token = params.get("Username");
+    User user = userList.accessUser(token);
+    String notes = user.getCatalystNotes();
+
+    String response = notes;
+    exchange.sendResponseHeaders(200, response.length());
+    exchange.getResponseBody().write(response.getBytes());
+    exchange.getResponseBody().close();
   }
 }
 
