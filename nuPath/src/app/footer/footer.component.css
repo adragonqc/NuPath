@@ -11,6 +11,8 @@ footer{
     flex-direction: row;
     flex-wrap: nowrap;
 
+    margin-top: 2%;
+
     justify-content: space-between;
     align-content: space-between;
 }
