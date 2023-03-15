@@ -5,8 +5,6 @@ import { CatalystPageComponent } from './catalyst-page/catalyst-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LeaderboardPageComponent } from './leaderboard-page/leaderboard-page.component';
 import { NearNovolandPageComponent } from './nearnovoland-page/nearnovoland-page.component';
-import { NovolandPageComponent } from './novoland-page/novoland-page.component';
-import { NulifePageComponent } from './nulife-page/nulife-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SocialsPageComponent } from './socials-page/socials-page.component';
 import { DormPageComponent } from './dorm-page/dorm-page.component';

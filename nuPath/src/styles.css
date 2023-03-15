@@ -26,12 +26,16 @@ a:visited{
     color: var(--green);
 }
 
-
+/* html formatting */
 html, body { height: 100%; }
 
 body { 
     margin: 0% 5% 0% 5%; /* top right bottom left */
     font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+section{
+    margin: 2% 0% 5% 0%;
 }
 
 .flex-row{
@@ -58,3 +62,18 @@ body {
     z-index: 1;
 }
 
+h1{
+    margin-top: 5px;
+}
+
+h2{
+    margin-top: 5px;
+}
+
+h3{
+
+}
+
+h4{
+    
+}

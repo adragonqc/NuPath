@@ -10,12 +10,28 @@ h3 {
     text-align: center;
 }
 
-div {
-    text-align: center;
+.container{
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    justify-content: space-around;
+}
+
+.left{
+    width: 55%;
+    margin-right: 5%;
+}
+
+.right{
+    width: 40%;
+    margin-left: 5%;
 }
 
 /* Table formatting */
-table {
+.table-container {
     margin-left: auto;
     margin-right:auto;
 }
@@ -35,4 +51,17 @@ td{
 
 .row-even{
     background-color: lightgray;
+}
+
+/* phone view*/
+@media only screen and (max-width: 800px){
+    /* if browser window <= 800px then change to column view */
+    .container{
+        flex-direction: column;
+    }
+
+    .left, .right{
+        width: 100%;
+        margin: 5% 0% 5% 0%;
+    }
 }

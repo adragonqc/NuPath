@@ -1,4 +1,34 @@
-<div class="container">
-    <p>Welcome to the Near Novoland Page!</p>
-</div>
+<div id="container">
+    <!-- sidebar with selection buttons -->
+    <div id="button-container">
+        <!-- set src url to food -->
+        <button class="mrButton" mat-raised-button type="button" (click)="setUrl('https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d14170.720805899096!2d-82.56522562203139!3d27.385701184348434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sfood%20near%205800%20Bay%20Shore%20Road%2C%20Sarasota%2C%20FL%2034243!5e0!3m2!1sen!2sus!4v1678894295758!5m2!1sen!2sus')">
+            Eateries
+        </button>
 
+        <!-- set src url to groceries -->
+        <button class="mrButton" mat-raised-button type="button" (click)="setUrl('https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28341.422689924682!2d-82.56531183951388!3d27.385775026758427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sgroceries%20near%205800%20Bay%20Shore%20Road%2C%20Sarasota%2C%20FL%2034243!5e0!3m2!1sen!2sus!4v1678906006120!5m2!1sen!2sus')">
+            Groceries
+        </button>
+        
+        <!-- set src url to transportation -->
+        <button class="mrButton" mat-raised-button type="button" (click)="setUrl('https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d14170.72680794621!2d-82.56736062562179!3d27.385654338402947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1stransit%20near%205800%20Bay%20Shore%20Rd%2C%20Sarasota%2C%20FL%2034243!5e0!3m2!1sen!2sus!4v1678895734322!5m2!1sen!2sus')">
+            Transit
+        </button>
+
+        <!-- set src url to art -->
+        <button class="mrButton" mat-raised-button type="button" (click)="setUrl('https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d14170.721995691689!2d-82.56740354317282!3d27.385691898029524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sart%20near%205800%20Bay%20Shore%20Rd%2C%20Sarasota%2C%20FL%2034243!5e0!3m2!1sen!2sus!4v1678895972502!5m2!1sen!2sus')">
+            Art
+        </button>
+        
+    </div>
+
+    <!-- iframe: dynamically change source -->
+    <iframe id="big-map"
+        [src]="urlSafe"
+        title="Near Novoland" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen>
+    </iframe>
+</div>
