@@ -52,8 +52,7 @@ import java.awt.*;
 public class User {
     
     private String displayName, username, password, interests, foodSelections, facultySelections, facilitiesSlection, dormSelection, 
-    aboutMe, pfpString, permissionLevel, contactInformation, catalystNotes;
-    private Classes classes;
+    aboutMe, pfpString, permissionLevel, contactInformation, catalystNotes, classes;
     private BufferedImage pfp;
     private ArrayList<String> photoGallery = new ArrayList<>();
     private GetDbCollection mongoDB = new GetDbCollection();
@@ -114,15 +113,14 @@ public class User {
 
     public void addImgToPhotos(String fileName){
 
-        this.photoGallery.add( fileName );
-
+        photoGallery.add( fileName );
 
         MongoCollection<Document> collection = mongoDB.returnCollection("UserDatabase", "Users");
 
-        for(Document doc: collection.find() ){
-            if( username.compareTo( doc.getString("Username") ) == 0){
-                ArrayList<String> oldVar = (ArrayList<String>) doc.get("Photo Gallery");
-                Document query = new Document("Photo Gallery", oldVar);
+        for(Document doc : collection.find() ){
+            if( username.compareTo( doc.getString("Username") ) == 0 ){
+                ArrayList<String> toUpdate = (ArrayList<String>) doc.get("Photo Gallery");
+                Document query = new Document("Photo Gallery", toUpdate);
                 Bson updates = Updates.combine(Updates.set("Photo Gallery", photoGallery) );
                 collection.updateOne(query, updates);
                 break;
@@ -165,10 +163,9 @@ public class User {
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Dorm Selection", this.dormSelection);
     }
 
-    //TO-DO
-    public void setClasses(Class selectedClass){
-        this.classes.addClasses(selectedClass);
-        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Class selection", "TO-DO");
+    public void setClasses(String selectedClass){
+        this.classes = selectedClass;
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Class selection", this.classes);
     }
 
     public void updatePermissionLevel(String permissionLevel){
@@ -218,6 +215,10 @@ public class User {
 
     public String getFacilitiesSelection(){
         return this.facilitiesSlection;
+    }
+
+    public String getClassesSelection(){
+        return this.classes;
     }
 
     public ArrayList<String> getPhotoGallery(){
@@ -353,28 +354,8 @@ public class User {
                 this.permissionLevel = doc.getString("Permission Level");
                 this.pfpString = doc.getString("PFP");
                 this.catalystNotes = doc.getString("Catalyst Notes");
-
-
-                Object photoGallery2 = doc.get("Photo Gallery");
-                System.out.println();
-                System.out.println( photoGallery2 );
-                System.out.println();
-
-                ArrayList<String> test = (ArrayList<String>) photoGallery2;
-                test.add( "Testing one" );
-                for(String str : test){
-                    System.out.println();
-                    System.out.println(str);
-                    System.out.println();
-                }
-
-                photoGallery2 = (Object) test;
-                System.out.println();
-                System.out.println( photoGallery2 );
-                System.out.println();
-
-
-                //this.photoGallery = (List<Object>) doc.getList(doc, photoGallery.getClass() );
+                Object photos = doc.get("Photo Gallery");
+                this.photoGallery = (ArrayList<String>) photos;
 
                 
             }

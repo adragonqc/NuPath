@@ -29,7 +29,7 @@ import org.bson.types.ObjectId;
 
 public class Classes implements Task{
     
-    private ArrayList<Class> classList;
+    private String classSelected;
     private User user;
     private GetDbCollection mongoDB = new GetDbCollection();
 
@@ -37,8 +37,8 @@ public class Classes implements Task{
         this.user = user;
     }
     
-    public void addClasses(Class class1){
-        classList.add(class1);
+    public void addClasses(String classPicked){
+        this.classSelected = classPicked;
     }
 
 

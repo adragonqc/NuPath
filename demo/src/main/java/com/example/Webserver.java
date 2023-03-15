@@ -52,11 +52,10 @@ public class Webserver{
     this.server.createContext("/SelectedFaculty", new AddFaculty( this.users) );
     this.server.createContext("/LikedFacilities", new AddFacilities( this.users) );
     this.server.createContext("/SelectedDorm", new AddDorm( this.users) );
+    this.server.createContext("/SelectedClasses", new AddClasses( this.users ) );
     this.server.createContext("/UpdateDisplayName", new UpdateDisplayName( this.users));
-    //this.server.createContext("UpdatePassword", new UpdatePassword( this.users ) ); //This doesn't work and I'm not sure why but updating password
-    //isn't crucial for the user as of right now, so this is to be fixed later.
+    this.server.createContext("/UpdatePassword", new UpdatePassword( this.users ) ); 
     this.server.createContext("/UploadPFP", new UploadPFP( this.users ) );
-    //this.server.createContext("UploadImgToPhotos", new UploadImgToPhotoGallery( this.users ) );
     this.server.createContext("/UpdateAboutme", new UpdateAboutMe( this.users ) );
     this.server.createContext("/UpdateContactInformation", new UpdateContactInformation( this.users ) );
     this.server.createContext("/UpdateInterests", new UpdateInterests( this.users ) );
@@ -69,10 +68,12 @@ public class Webserver{
     this.server.createContext("/ReturnAboutMe", new ReturnAboutMe( this.users ) );
     this.server.createContext("/ReturnFood", new ReturnFood( this.users ) );
     this.server.createContext("/ReturnDorm", new ReturnDorm( this.users ) );
+    this.server.createContext("/ReturnClasses", new ReturnClasses( this.users ) );
     this.server.createContext("/ReturnFacilities", new ReturnFacilities( this.users ) );
     this.server.createContext("/ReturnFaculty", new ReturnFaculty( this.users ) );
     this.server.createContext("/ReturnContactInfo", new ReturnContactInformation( this.users) ); 
     this.server.createContext("/ReturnCatalystNotes", new ReturnCatalystNotes( this.users) );
+    this.server.createContext("/ReturnPhotoGallery", new ReturnPhotoGallery( this.users) );
     this.server.createContext("/UpdateLeaderboard", new UpdateLeaderBoard() );
     this.server.createContext("/ReturnLBInfo", new ReturnLBInformation() ); //This needs to be fixed and 2d ArrayList should be sent as a response
 
@@ -329,6 +330,36 @@ class AddFaculty implements HttpHandler{
   }
 }
 
+class AddClasses implements HttpHandler{
+
+  private UserList userList = UserList.getInstance();
+
+  public AddClasses(UserList users){
+    this.userList = users;
+  }
+
+  public void handle(HttpExchange exchange) throws IOException{
+
+    exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+
+    Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
+
+    String username = params.get("Username");
+    String selectedClasses = params.get("SelectedClasses");
+    User user = userList.accessUser(username);
+
+    Classes classes = new Classes(user);
+    classes.addClasses(selectedClasses);
+    classes.completeTask();
+    user.setClasses(selectedClasses);
+
+    String response = "Response";
+    exchange.sendResponseHeaders(200, response.length());
+    exchange.getResponseBody().write(response.getBytes());
+    exchange.getResponseBody().close();
+  }
+}
+
 class AddFacilities implements HttpHandler{
 
   private UserList userList = UserList.getInstance();
@@ -467,38 +498,6 @@ class UploadPFP implements HttpHandler{
   }
 }
 
-class UploadImgToPhotoGallery implements HttpHandler{
-
-  private UserList userList = UserList.getInstance();
-
-  public UploadImgToPhotoGallery(UserList users){
-    this.userList = users;
-  }
-
-  public void handle(HttpExchange exchange) throws IOException{
-
-    exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
-
-    Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
-
-    String username = params.get("Username");
-    String newImg = params.get("NewImgfile");
-    User user = userList.accessUser(username);
-    System.out.println();
-    System.out.println("Breaking before its adding it to photo gallery");
-    System.out.println();
-    user.addImgToPhotos(newImg);
-    System.out.println();
-    System.out.println("Breaking after adding it to photo gallery");
-    System.out.println();
-
-    String response = "Image was added to Photo Gallery";
-    exchange.sendResponseHeaders(200, response.length());
-    exchange.getResponseBody().write(response.getBytes());
-    exchange.getResponseBody().close();
-
-  }
-}
 
 class UpdateAboutMe implements HttpHandler{
   
@@ -705,13 +704,13 @@ class ReturnPhotoGallery implements HttpHandler{
 
     User user = userList.accessUser(token);
     ArrayList<String> photoGallery = user.getPhotoGallery();
+    Object photos = (Object) photoGallery;
 
-    for(Object obj : photoGallery){
-      String response = String.valueOf(obj);
-      exchange.sendResponseHeaders(200, response.length());
-      exchange.getResponseBody().write(response.getBytes() );
-      exchange.getResponseBody().close();
-    }
+    String response = String.valueOf(photos);
+    exchange.sendResponseHeaders(200, response.length());
+    exchange.getResponseBody().write(response.getBytes() );
+    exchange.getResponseBody().close();
+
   }
 }
 
@@ -793,7 +792,7 @@ class ReturnInterests implements HttpHandler{
 
 class ReturnFood implements HttpHandler{
 
-  private UserList userList = new UserList();
+  private UserList userList = UserList.getInstance();
 
   public ReturnFood(UserList users){
     this.userList = users;
@@ -819,7 +818,7 @@ class ReturnFood implements HttpHandler{
 
 class ReturnDorm implements HttpHandler{
 
-  private UserList userList = new UserList();
+  private UserList userList = UserList.getInstance();
 
   public ReturnDorm(UserList users){
     this.userList = users;
@@ -836,6 +835,31 @@ class ReturnDorm implements HttpHandler{
     String dorm = user.getDormSelection();
 
     String response = dorm;
+    exchange.sendResponseHeaders(200, response.length());
+    exchange.getResponseBody().write(response.getBytes());
+    exchange.getResponseBody().close();
+  }
+}
+
+class ReturnClasses implements HttpHandler{
+
+  private UserList userList = new UserList();
+
+  public ReturnClasses(UserList users){
+    this.userList = users;
+  }
+
+  public void handle(HttpExchange exchange) throws IOException{
+
+    exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+    
+    Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
+
+    String token = params.get("Username");
+    User user = userList.accessUser(token);
+    String classes = user.getClassesSelection();
+
+    String response = classes;
     exchange.sendResponseHeaders(200, response.length());
     exchange.getResponseBody().write(response.getBytes());
     exchange.getResponseBody().close();
