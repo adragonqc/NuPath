@@ -41,7 +41,7 @@ nav {
   padding: 0;
   margin: 0;
   list-style: none;
-  z-index: 1;
+  z-index: 9;
 }
 
 .dropdown-menu li {
