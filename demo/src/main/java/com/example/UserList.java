@@ -50,11 +50,48 @@ public class UserList {
     private Forums forum = new Forums();
 
     public UserList(){
+        MongoCollection<Document> userCollection = mongoDB.returnCollection("UserDatabase", "Users");
+        for(Document doc : userCollection.find() ){
+            String username = doc.getString("Username");
+            String pw = doc.getString("Password");
+            userArray.add( new User(username, pw) );
+        }
+    }
+
+    public String returnAllUserNames(){
+
+        String allUserNames = "";
+
+        MongoCollection<Document> userCollection = mongoDB.returnCollection("UserDatabase", "Users");
+
+        for(Document doc : userCollection.find() ){
+            allUserNames += doc.getString("Username") + " ";
+        }
+
+        return allUserNames;
 
     }
 
-    public String checkLogin(String username, String pw){
 
+    public String checkUsername(String userName){
+
+        MongoCollection<Document> userCollection = mongoDB.returnCollection("UserDatabase", "Users");
+
+        for(Document doc : userCollection.find() ){
+            if( userName.compareTo( doc.getString("Username") ) == 0 ){
+                User user = new User( userName, doc.getString("Password") );
+                addUser(user);
+                return "True";
+            }
+        }
+
+
+        return "False";
+
+    }
+
+
+    public String checkLogin(String username, String pw){
 
         MongoCollection<Document> userCollection = mongoDB.returnCollection("UserDatabase", "Users");
         
@@ -72,7 +109,7 @@ public class UserList {
 
         if(newUsername != null && password != null){
             User oldUser = new User(newUsername, password);
-            addUser(oldUser);
+            //addUser(oldUser);
             return "True";
         }
         else{
@@ -110,7 +147,7 @@ public class UserList {
     }
 
     public void removeUser(User user){
-        this.userArray.remove(user);
+        //this.userArray.remove(user);
     }
 
     public User accessUser(String userName){

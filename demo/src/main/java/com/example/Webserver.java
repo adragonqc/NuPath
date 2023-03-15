@@ -124,6 +124,60 @@ class IndexHandler implements HttpHandler {
 }
 
 
+class GetAllUsernames implements HttpHandler{
+
+  private UserList newUsersList = UserList.getInstance();
+
+  public GetAllUsernames(UserList users){
+    this.newUsersList = users;
+  }
+
+  public void handle(HttpExchange exchange) throws IOException{
+
+    exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+    
+    Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
+
+    String listUsernames = newUsersList.returnAllUserNames();
+
+    //The username is the token being sent back to the frontend to grab the information from the 
+    //users on the website for more information requests.
+    //Should probably be changed to something more secure, but that's for later.
+    String response = String.valueOf(listUsernames);
+    exchange.sendResponseHeaders(200, response.length());
+    exchange.getResponseBody().write(response.getBytes());
+    exchange.getResponseBody().close();
+  }
+}
+
+class CheckUsers implements HttpHandler{
+  
+  private UserList newUsersList = UserList.getInstance();
+
+  public CheckUsers(UserList users){
+    this.newUsersList = users;
+  }
+
+  public void handle(HttpExchange exchange) throws IOException{
+
+    exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+    
+    Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
+
+    String username = params.get("Username");
+    String checkIfUser = newUsersList.checkUsername(username);
+
+    //The username is the token being sent back to the frontend to grab the information from the 
+    //users on the website for more information requests.
+    //Should probably be changed to something more secure, but that's for later.
+    String response = String.valueOf(checkIfUser);
+    exchange.sendResponseHeaders(200, response.length());
+    exchange.getResponseBody().write(response.getBytes());
+    exchange.getResponseBody().close();
+  }
+}
+
+
 class CreateUser implements HttpHandler{
 
   private UserList newUsersList = UserList.getInstance();
@@ -500,15 +554,21 @@ class UpdateInterests implements HttpHandler{
   }
 
   public void handle(HttpExchange exchange) throws IOException{
-    
+
+    exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
     Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
 
     String token = params.get("Username");
     String interest = params.get("Interest");
-
+    System.out.println(token);
     User user = userList.accessUser(token);
+    System.out.println( user.getUsername() );
     user.updateInterests(interest);
+
+    System.out.println();
+    System.out.println("This is the username " + user.getUsername() );
+    System.out.println();
 
     String response = interest;
     exchange.sendResponseHeaders(200, response.length());

@@ -104,7 +104,7 @@ public class User {
 
     public void uploadPFP(String fileName){
         this.pfpString = fileName;
-        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "PFP", fileName);
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "PFP", this.pfpString);
     }
 
     public void updateContactInfo(String contactInfo){
@@ -132,6 +132,9 @@ public class User {
 
     public void updateInterests(String interestss){
         this.interests = interestss;
+        System.out.println();
+        System.out.println("This is the username that is going through and being updated " + this.username );
+        System.out.println();
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Interests", this.interests);
     }
 
@@ -343,20 +346,8 @@ public class User {
                 this.permissionLevel = doc.getString("Permission Level");
                 this.pfpString = doc.getString("PFP");
 
-                System.out.println();
-                System.out.println("Breaking during photogallery being taken");
-                System.out.println();
                 //this.photoGallery = (List<Object>) doc.getList(doc, photoGallery.getClass() );
 
-                System.out.println();
-                System.out.println("Breaking after photoGallery but before printing each item out");
-                System.out.println();
-
-                for(Object obj : photoGallery){
-                    System.out.println();
-                    System.out.println(obj);
-                    System.out.println();
-                }
                 
             }
             
