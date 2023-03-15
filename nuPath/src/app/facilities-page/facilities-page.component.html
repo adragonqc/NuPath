@@ -1,111 +1,128 @@
 <h1>Campus Facilities</h1>
 
 <!-- Ham -->
-<div>
-    <h2>Hamilton Cafe</h2>
-    <p>
-        (insert description)
-    </p>
+<section id="ham" class="container">
+    <div class="left">
+        <h2>Hamilton Cafe</h2>
+        <p>
+            Hamilton Cafe offeres a variety of food options such as home-style at Main Plate,
+            Grilled foods at J. Clark's Grille, freshly made pizza at Villa Toscana, and more as well as
+            options for vegetarian, vegan, and gluten free diets.
+            <br><br>
+            Hamilton Cafe accepts meal plans, credit, and cash.
+        </p>
+        <h4>Contact</h4>
+        (941)487-4270<br>
+        <a href="mailto: food-group@ncf.edu">food-group@ncf.edu</a>
 
-    <div class="flex-row">
-        <!-- open weekly menu in a separate tab -->
-        <a class="mrButton" mat-raised-button href="https://www.metznewcollege.com/cafe.html" target="_blank">
-            View Menu & Hours
-        </a>
-        <!-- open meal plan options in a separate tab -->
-        <a class="mrButton" mat-raised-button href="https://www.ncf.edu/life-at-new/where-to-eat/" target="_blank">
-            View Meal Plans
-        </a>
+        <div class="button-container">
+            <!-- open weekly menu in a separate tab -->
+            <a class="mrButton" mat-raised-button href="https://www.metznewcollege.com/cafe.html" target="_blank">
+                View Menu & Hours
+            </a>
+            <!-- open meal plan options in a separate tab -->
+            <a class="mrButton" mat-raised-button href="https://www.ncf.edu/life-at-new/where-to-eat/" target="_blank">
+                View Meal Plans
+            </a>
+        </div>
+
     </div>
-
-    <h4>Contact</h4>
-    (941)487-4270<br>
-    <a href="mailto: food-group@ncf.edu">food-group@ncf.edu</a><br>
-    <br>
-    <h4>Location</h4>
-    <iframe class="minimap"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3542.707484940042!2d-82.55745791031985!3d27.38484938359842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c33fda1838b2d5%3A0x82baa68f8545765e!2sNew%20College%20of%20Florida%20Cafeteria!5e0!3m2!1sen!2sus!4v1678811875341!5m2!1sen!2sus" 
-        style="border:0;" 
-        allowfullscreen="" 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-</div>
+    
+    <div class="right">
+        <iframe class="minimap"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3542.707484940042!2d-82.55745791031985!3d27.38484938359842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c33fda1838b2d5%3A0x82baa68f8545765e!2sNew%20College%20of%20Florida%20Cafeteria!5e0!3m2!1sen!2sus!4v1678811875341!5m2!1sen!2sus" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+</section>
 
 <!-- Library -->
-<div>
+<section id="library">
     <!-- https://www.ncf.edu/library/ -->
-    <h2>Jane Bancroft Cook Library</h2>
-    <p>
-        description
-    </p>
+    <div class="container">
+        <div class="left">
+            <h2>Jane Bancroft Cook Library</h2>
+            <p>
+                (insert description)
+            </p>
+            <h4>Contact</h4>
+            (941)487-4305<br>
+            <a href="mailto: library@ncf.edu">library@ncf.edu</a>
+        </div>
+    
+        <div class="right">
+            <iframe class="minimap"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3542.7084003405907!2d-82.56088040942814!3d27.384820804001556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c33fd757865b2f%3A0xc9e754516a0e1898!2sJane%20Bancroft%20Cook%20Library!5e0!3m2!1sen!2sus!4v1678494508373!5m2!1sen!2sus" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+    
+    <!-- 3 column row -->
+    <div class="container">
+        <div id="ceo" class="column-3">
+            <!-- https://www.ncf.edu/ceo/ -->
+            <h3>Career Engagement & Opportunity (CEO)</h3>
+            <p>
+                The Center for Career Engagement & Opportunity or CEO helps prepare students for life post-graduation.
+                CEO staff work with faculty members to give each student personalized career coaching.
+            </p>
+            <a class="mrButton" mat-raised-button href="https://www.ncf.edu/departments/ceo/" target="_blank">
+                Meet the CEO Staff
+            </a>
+    
+            <h4>Contact</h4>
+            (941)487-5002<br>
+            <a href="mailto: ceo@ncf.edu">ceo@ncf.edu</a><br>
+            Library Modular Building
+        </div>
+    
+        <div id="qrc" class="column-3">
+            <!-- https://www.ncf.edu/departments/quantitative-resource-center/ -->
+            <h3>Quantitative Resource Center (QRC)</h3>
+            <p>
+                The Quantitative Resource Center or QRC offers peer tutoring (individual and small group) in 
+                Chemistry, Mathematics, Physics, Statistics, Computer Science, Economics, and Biology. 
+            </p>
+            <!-- open office hours doc in separate tab -->
+            <a class="mrButton" mat-raised-button href="https://docs.google.com/document/d/1L0XZMoaLLcjo3mYXh-FiecAZrE0uLhnQTdYErfcyPRI/edit?usp=sharing" target="_blank">
+                View Tutor Office Hours
+            </a>
+    
+            <h4>Contact</h4>
+            (941)487-4742<br>
+            <a href="mailto: qrc@ncf.edu">qrc@ncf.edu</a><br>
+            Library 119
+        </div>
+    
+        <div id="wrc" class="column-3">
+            <!-- https://www.ncf.edu/academics/writing-program/writing-resource-center/ -->
+            <h3>Writing Resource Center (WRC)</h3>
+            <p>
+                The Writing Resource Center or WRC is dedicated to helping students, staff, and faculty with writing.
+                A Student Writing Assistant (SWA) can assist with any type of writing.
+            </p>
+            <!-- open SWA page in separate tab -->
+            <a class="mrButton" mat-raised-button href="https://www.ncf.edu/academics/writing-program/writing-resource-center/swa/" target="_blank">
+                Meet the SWAs
+            </a>
+            <h4>Contact</h4>
+            (941)487-4506<br>
+            <a href="mailto: writing@ncf.edu">writing@ncf.edu</a><br>
+            Library 103
+        </div>
+    </div>
 
-    <h4>Contact</h4>
-    (941)487-4305<br>
-    <a href="mailto: library@ncf.edu">library@ncf.edu</a><br>
-    <br>
-    <h4>Location</h4>
-    <iframe class="minimap"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3542.7084003405907!2d-82.56088040942814!3d27.384820804001556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c33fd757865b2f%3A0xc9e754516a0e1898!2sJane%20Bancroft%20Cook%20Library!5e0!3m2!1sen!2sus!4v1678494508373!5m2!1sen!2sus" 
-        style="border:0;" 
-        allowfullscreen="" 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+    
 
-    <!-- https://www.ncf.edu/ceo/ -->
-    <h3>Career Engagement & Opportunity (CEO)</h3>
-    <p>
-        The Center for Career Engagement & Opportunity or CEO helps prepare students for life post-graduation.
-        CEO staff work with faculty members to give each student personalized career coaching. Each new
-        student is assigned a career coach.
-    </p>
-    <a class="mrButton" mat-raised-button href="https://www.ncf.edu/departments/ceo/" target="_blank">
-        Meet the CEO Staff
-    </a>
-
-    <h4>Contact</h4>
-    (941)487-5002<br>
-    <a href="mailto: ceo@ncf.edu">ceo@ncf.edu</a><br>
-    <br>
-    <h4>Location</h4>
-    Library Modular Building
-
-    <!-- https://www.ncf.edu/departments/quantitative-resource-center/ -->
-    <h3>Quantitative Resource Center (QRC)</h3>
-    <p>
-        The Quantitative Resource Center or QRC offers peer tutoring (individual and small group) in 
-        Chemistry, Mathematics, Physics, Statistics, Computer Science, Economics, and Biology. 
-    </p>
-    <!-- open office hours doc in separate tab -->
-    <a class="mrButton" mat-raised-button href="https://docs.google.com/document/d/1L0XZMoaLLcjo3mYXh-FiecAZrE0uLhnQTdYErfcyPRI/edit?usp=sharing" target="_blank">
-        View Tutor Office Hours
-    </a>
-
-    <h4>Contact</h4>
-    (941)487-4742<br>
-    <a href="mailto: qrc@ncf.edu">qrc@ncf.edu</a><br>
-    <br>
-    <h4>Location</h4>
-    Library 119
-
-    <!-- https://www.ncf.edu/academics/writing-program/writing-resource-center/ -->
-    <h3>Writing Resource Center (WRC)</h3>
-    <p>
-        The Writing Resource Center or WRC is dedicated to helping students, staff, and faculty with writing.
-        A Student Writing Assistant (SWA) can assist with any type of writing.
-    </p>
-    <!-- open SWA page in separate tab -->
-    <a class="mrButton" mat-raised-button href="https://www.ncf.edu/academics/writing-program/writing-resource-center/swa/" target="_blank">
-        Meet the SWAs
-    </a>
-    <h4>Contact</h4>
-    (941)487-4506<br>
-    <a href="mailto: writing@ncf.edu">writing@ncf.edu</a><br>
-    <br>
-    <h4>Location</h4>
-    Library 103
-</div>
+    
+</section>
 
 <!-- Campus Bookstore -->
 <div>
