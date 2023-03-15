@@ -1,0 +1,19 @@
+#button-container, #big-map{
+
+}
+
+#button-container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+#big-map{
+    width: 60%;
+    height: 50%;
+}
+
+@media only screen and (max-width: 800px){
+    /* if browser window <= 800px then change to column view */
+    
+}
