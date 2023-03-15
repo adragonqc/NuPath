@@ -56,7 +56,7 @@ td{
 /* phone view*/
 @media only screen and (max-width: 800px){
     /* if browser window <= 800px then change to column view */
-    #container{
+    .container{
         flex-direction: column;
     }
 
