@@ -16,6 +16,6 @@
     <li class="nav-item"><a routerLink="/leaderboard" routerLinkActive="selected">Leaderboard</a></li>
     <li class="nav-item"><a routerLink="/catalyst" routerLinkActive="selected">Catalyst</a></li>
     <li class="nav-item"><a routerLink="/calendar" routerLinkActive="selected">Calendar</a></li>
-    <li class="nav-item" style="float:right;"><a routerLink="/profile" routerLinkActive="selected">Profile</a></li>
+    <li class="nav-item" style="float:right;"><a [routerLink]="'/profile/' + currentUser" routerLinkActive="selected">Profile</a></li>
   </ul>
 </nav>

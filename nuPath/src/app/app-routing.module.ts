@@ -19,7 +19,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent },
   { path: 'catalyst', component: CatalystPageComponent },
   { path: 'leaderboard', component: LeaderboardPageComponent },
@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'socials', component: SocialsPageComponent },
   { path: 'academic', component: AcademicPageComponent },
   { path: 'novoland', component: NovolandPageComponent },
-  { path: 'profile', component: ProfilePageComponent },
+  { path: 'profile/:username', component: ProfilePageComponent },
   { path: 'dorms', component: DormPageComponent },
   { path: 'facilities', component: FacilitiesPageComponent },
   { path: 'packinglist', component: PackinglistPageComponent },

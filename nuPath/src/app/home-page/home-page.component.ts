@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,7 +8,9 @@ import { Router } from '@angular/router';
 })
 export class HomePageComponent {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    
+  }
 
   goToCatalystPage() {
     this.router.navigate(['/catalyst'])

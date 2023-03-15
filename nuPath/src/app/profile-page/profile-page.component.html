@@ -1,18 +1,18 @@
 <div class="profile-container">
-    <img class="profile-picture" src="https://i.pinimg.com/236x/cc/50/ca/cc50cada4658669e26f818405cc7016b.jpg" alt="User Profile Picture">
-    <h1 class="display-name">John Doe</h1>
-    <p class="email">johndoe@email.com</p>
-    <p class="hometown">Sarasota, FL</p>
-    <div class="interests-container">
-      <h2>Interests</h2>
-      <ul>
-        <li>Cooking</li>
-        <li>Photography</li>
-        <li>Hiking</li>
-      </ul>
-    </div>
-    <div class="canvas-container">
-      <app-canvas></app-canvas>
-    </div>
+  <div class="profile-picture">
+    <img [src]="getProfilePicture()" alt="Profile Picture">
   </div>
+  <div class="profile-details">
+    <h2 class="display-name">{{ displayName }}</h2>
+    <p class="contact-information">Contact Information: {{ contactInformation }}</p>
+    <h3>Interests</h3>
+    <p class="interests">{{ interests }}</p>
+    <h3>About Me</h3>
+    <p class="about-me">{{ aboutMe }}</p>
+  </div>
+  <div class="canvas-container">
+    <app-canvas></app-canvas>
+  </div>
+</div>
+
   

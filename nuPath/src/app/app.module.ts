@@ -30,6 +30,7 @@ import { PackinglistPageComponent } from './packinglist-page/packinglist-page.co
 import { ForumComponent } from './forum/forum.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
     DormPageComponent,
     PackinglistPageComponent,
     FacilitiesPageComponent,
+    
     ForumComponent,
     RegisterPageComponent
   ],
@@ -67,7 +69,8 @@ import { RegisterPageComponent } from './register-page/register-page.component';
     MatSelectModule,
     MatOptionModule,
     MatButtonModule,
-    NgxFileDropModule
+    NgxFileDropModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
