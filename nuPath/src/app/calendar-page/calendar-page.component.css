@@ -1,0 +1,8 @@
+
+@media only screen and (max-width: 800px){
+    /* if browser window <= 800px then make smaller */
+    iframe{
+        width: 500px;
+        height: 500px;
+    }
+}
