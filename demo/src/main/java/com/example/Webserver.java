@@ -59,7 +59,7 @@ public class Webserver{
     //this.server.createContext("UploadImgToPhotos", new UploadImgToPhotoGallery( this.users ) );
     this.server.createContext("/UpdateAboutme", new UpdateAboutMe( this.users ) );
     this.server.createContext("/UpdateContactInformation", new UpdateContactInformation( this.users ) );
-    this.server.createContext("/UpdateInterests", new ReturnInterests( this.users ) );
+    this.server.createContext("/UpdateInterests", new UpdateInterests( this.users ) );
     this.server.createContext("/AddToPhotoGallery", new AddImgToPhotoGallery( this.users) );
     this.server.createContext("/ReturnUsername", new ReturnUsername( this.users ) );
     this.server.createContext("/ReturnDisplayName", new ReturnDisplayName( this.users ) );
@@ -500,6 +500,7 @@ class UpdateInterests implements HttpHandler{
   }
 
   public void handle(HttpExchange exchange) throws IOException{
+    
 
     Map<String, String> params = Webserver.queryToMap(exchange.getRequestURI().getQuery());
 

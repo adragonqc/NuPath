@@ -62,7 +62,7 @@ public class Testing {
         //Converting string to enum ? Maybe a bunch of switch cases like case:"Monday" return Days.Monday
 
 
-        Webserver server = new Webserver(80);
+        Webserver server = new Webserver(9000);
 
     }
 

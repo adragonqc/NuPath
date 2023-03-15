@@ -130,14 +130,14 @@ public class User {
         }
     }
 
-    public void updateInterests(String interests){
-        this.interests = interests;
+    public void updateInterests(String interestss){
+        this.interests = interestss;
         mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Interests", this.interests);
     }
 
     public void updateAboutMe(String aboutMe){
         this.aboutMe = aboutMe;
-        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "Display Name", this.displayName);
+        mongoDB.updateDatabase("UserDatabase", "Users", this.username, "About Me", this.aboutMe);
     }
 
     public void setFoodSelection(String foodSelection){
