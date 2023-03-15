@@ -13,6 +13,20 @@
     --yellow: #FFBF3F;
 }
 
+/* link colors */
+a:link {
+    color: var(--lightblue);
+}
+
+a:hover {
+    color: var(--yellow);
+}
+
+a:visited{
+    color: var(--green);
+}
+
+
 html, body { height: 100%; }
 
 body { 
@@ -20,20 +34,27 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
 
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 .minimap, .yt-viewer{
     /* set dimensions */
     width: 560px;
     height: 315px;
-    padding: 5px;
-
+    padding: 10px;
+    
     /* center */
     display: block;
     margin-left: auto;
     margin-right: auto;    
 }
 
-.flex-row{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+/* mat-raised-button */
+.mrButton{
+    margin: 5px;
+    z-index: 1;
 }
+

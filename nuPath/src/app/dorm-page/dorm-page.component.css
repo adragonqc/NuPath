@@ -1,13 +1,38 @@
-/* 
-    refs:
-    https://www.w3schools.com/css/css3_flexbox_container.asp
-*/
-
-.container{
-    padding-top: 70px;
+h1 {
+    text-align: center;
 }
-.flex-row{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+
+h2 {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+}
+
+div {
+    text-align: center;
+}
+
+/* Table formatting */
+table {
+    margin-left: auto;
+    margin-right:auto;
+}
+
+td{
+    padding: 5px 10px 5px 10px;
+}
+
+/* alternating colors*/
+.row-header{
+    background-color: var(--lightblue);
+}
+
+.row-odd{
+    background-color: white;
+}
+
+.row-even{
+    background-color: lightgray;
 }

@@ -1,10 +1,11 @@
 nav {
-  background-color: #003087;
+  background-color: var(--blue);
 
   /* sticky navbar */
   position: fixed;
   top: 0%;
   width: 90%;
+  z-index: 10;
 }
 
 .nav-item {
@@ -23,6 +24,7 @@ nav {
 
 .nav-item a:hover {
   text-decoration: underline;
+  color:#ccc; 
   cursor: pointer;
 }
 
@@ -74,5 +76,10 @@ nav {
 
 /* highlight current link/page */
 .selected{
-  background-color: #7BAFD4; /* test color change later*/
+  background-color: var(--lightblue); /* test color change later*/
+}
+
+@media only screen and (max-width: 800px){
+  /* if browser window <= 800px then change navbar to dropdown */
+  
 }
