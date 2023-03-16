@@ -1,5 +1,11 @@
 <p>Welcome to the Socials Page!</p>
 
 <ul>
-    <li *ngFor="let user of this.userArray">{{ user.displayName }} | <a href="mailto: {{user.email}}"> {{ user.email }}</a> | Interests: {{ user.interests }}</li>
+    <div class="card" *ngFor="let user of this.userArray">
+        <h3><a routerLink="/profile/{{user.username}}">{{ user.displayName }}</a></h3>
+        <a href="mailto: {{user.email}}"> {{ user.email }}</a>
+        <br><br> 
+        Interests:<br>
+        {{ user.interests }}
+    </div>
 </ul>

@@ -19,11 +19,11 @@ a:link {
 }
 
 a:hover {
-    color: var(--yellow);
+    color: var(--lightblue);
 }
 
 a:visited{
-    color: var(--green);
+    color: var(--magenta);
 }
 
 /* html formatting */
