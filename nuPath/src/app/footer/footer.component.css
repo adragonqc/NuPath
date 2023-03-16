@@ -6,6 +6,14 @@ a:link {
     color: white;
 }
 
+a:hover {
+    color: var(--yellow);
+}
+
+a:visited{
+    color: var(--green);
+}
+
 footer{
     background-color: var(--blue);
     color: white;
