@@ -8,18 +8,18 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./profile-page.component.css']
 })
 export class ProfilePageComponent implements OnInit {
-  currentUser!: string;
-  username!: string | null;
-  displayName!: string;
-  contactInformation!: string;
-  interests!: string;
-  foodSelection!: string;
-  facultySelection!: string;
-  facilitiySelection!: string;
-  dormSelection!: string;
-  aboutMe!: string;
-  profilePicture!: string;
-  photos!: string[];
+  currentUser: string = "";
+  username: string = "";
+  displayName: string = "";
+  contactInformation: string = "";
+  interests: string = "";
+  foodSelection: string = "";
+  facultySelection: string = "";
+  facilitiySelection: string = "";
+  dormSelection: string = "";
+  aboutMe: string = "";
+  profilePicture: string = "";
+  photos: string[] = [];
 
   originalDisplayName = '';
   editingDisplayName = false;
@@ -37,9 +37,7 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = sessionStorage.getItem('currentUser') as string;
 
-    this.username = this.route.snapshot.paramMap.get('username');
-
-    
+    this.username = this.route.snapshot.paramMap.get('username') as string;
 
     // check for existing user
     fetch(this.ip + "ReturnUsername?Username=" + this.username, {
@@ -292,6 +290,7 @@ export class ProfilePageComponent implements OnInit {
   saveInterests() {
     // Update interests in your database or API
     fetch(this.ip + "UpdateInterests?Username=" + this.username + "&Interest=" + this.interests);
+    console.log(this.ip + "UpdateInterests?Username=" + this.username + "&Interest=" + this.interests)
     this.editingInterests = false;
   }
 
@@ -323,6 +322,7 @@ export class ProfilePageComponent implements OnInit {
 
   saveAboutMe() {
     fetch(this.ip + "UpdateAboutme?Username=" + this.username + "&NewAboutme=" + this.aboutMe);
+    console.log(this.ip + "UpdateAboutme?Username=" + this.username + "&NewAboutme=" + this.aboutMe);
     this.editingAboutMe = false;
   }
 
