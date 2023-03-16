@@ -40,6 +40,20 @@
     </div>
 </section>
 
+<section id="food-feedback">
+    <h5>
+        Please tell us what you think of the Hamilton Cafe and share what kinds of foods you would like to see there!
+    </h5>
+<h5>
+    <textarea class="food-feedback-textbox" placeholder="Enter your thoughts here!" [(ngModel)]="foodFeedback"></textarea>
+</h5>
+<h5>
+    <button class="save-food-feedback" (click)="saveFoodFeedback()">Save</button>
+</h5>
+
+    
+</section>
+
 <!-- Library -->
 <!-- https://www.ncf.edu/library/ -->
 <section id="library">
@@ -315,4 +329,18 @@
             </iframe>
         </div>
     </div>
+</section>
+
+<section id="facility-feedback">
+    <h5>
+        Please tell us what you think of all of our facilities and which ones you would use!
+    </h5>
+<h5>
+    <textarea class="facility-feedback-textbox" placeholder="Enter your thoughts here!" [(ngModel)]="facilityFeedback"></textarea>
+</h5>
+<h5>
+    <button class="save-facility-feedback" (click)="saveFacilityFeedback()">Save</button>
+</h5>
+
+    
 </section>

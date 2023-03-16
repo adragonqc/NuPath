@@ -36,7 +36,6 @@ export class CatalystPageComponent implements OnInit {
 
   saveNotes(): void {
     fetch("http://35.188.8.151:80/UpdateCatalystNotes?Username=" + sessionStorage.getItem('currentUser') + "&Notes=" + this.notes, {})
-    console.log(this.notes)
   }
 
 }
