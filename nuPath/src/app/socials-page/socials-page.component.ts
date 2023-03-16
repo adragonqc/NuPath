@@ -9,8 +9,8 @@ import { Component, OnInit } from '@angular/core';
 
 export class SocialsPageComponent implements OnInit{
 
-  usernameArray!: Array<String>;
-  userArray!: Array<User>;
+  usernameArray: Array<String> = [];
+  userArray: Array<User> = [];
 
   ngOnInit(): void {
     fetch("http://35.188.8.151:80/GetAllUserNames")
@@ -24,7 +24,6 @@ export class SocialsPageComponent implements OnInit{
       this.usernameArray = content.split(", ");
       this.usernameArray.pop()
       this.usernameArray.forEach((username) => {
-        console.log(username)
         var newUser = new User(username,"","","");
 
         
