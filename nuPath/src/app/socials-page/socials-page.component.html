@@ -1,5 +1,5 @@
 <p>Welcome to the Socials Page!</p>
 
 <ul>
-    <li *ngFor="let user of this.userArray">{{ user.displayName }} | {{ user.email }} | {{ user.interests }}</li>
+    <li *ngFor="let user of this.userArray">{{ user.displayName }} | <a href="mailto: {{user.email}}"> {{ user.email }}</a> | Interests: {{ user.interests }}</li>
 </ul>

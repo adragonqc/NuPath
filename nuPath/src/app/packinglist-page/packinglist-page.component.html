@@ -3,35 +3,34 @@
     https://www.ncf.edu/wp-content/uploads/2022/01/Packing-List.pdf 
 -->
 
-<div class="flex-row">
-
+<div>
     <!-- main body of packing list -->
     <div id="print">
         <h1>Packing List</h1>
-
         <h2>Room Essentials</h2>
         <ul>
             <!-- bedding -->
             <li>Twin extra-long (XL) sheet set</li>
-            <li>Pillows</li>
             <li>Mattress pad</li>
             <li>Comforter and or blanket</li>
-            <li>Extra throw blanket</li>
+            <li>Pillows</li>
 
             <!-- cables -->
             <li>Power strip with surge protector</li>
             <li>Multi-port USB charger</li>
             <li>Ethernet cable (Cat 5E or Cat 6)</li>
 
+            <li>Blackout curtains</li>
             <li>Alarm clock</li>
             <li>Lamp(s)</li>
             <li>Wastebasket & trash bags</li>
+            <li>Clothes hamper</li>
             <li>Clothes hangers</li>
         </ul>
 
         <h2>Bath Essentials & Toiletries</h2>
         <ul>
-            <li>Bath towel</li>
+            <li>Bath towels</li>
             <li>Shower supplies (shampoo, conditioner, soap, etc.)</li>
             <li>Deodorant</li>
             <li>Toothbrush & toothpaste</li>
@@ -52,7 +51,7 @@
             <li>Dish towel</li>
             <li>Dish soap</li>
             <li>Room deodorizing spray</li>
-            <li>Laundry supplies (hamper, detergent)</li>
+            <li>Laundry detergent</li>
             <li>Hand sanitizer</li>
             <li>Disinfectant wipes</li>
             <li>Lysol spray</li>
@@ -78,7 +77,7 @@
             <li>Refrigerator (no larger than 5 cubic feet)</li>
             <li>Microwave**</li>
             <li>Coffee Pot**</li>
-            <li>Electric Kettle</li>
+            <li>Electric Kettle**</li>
             <li>Water filtering pitcher (Brita, Purell, etc.)</li>
 
             <li>Vacuum cleaner</li>
@@ -100,10 +99,8 @@
     </div>
 
     <!-- button ref: https://v5.material.angular.io/components/button/overview -->
-    <!-- button container -->
     <div id="button-container">
         <!-- print button: should print packing list when clicked -->
-        <!-- TODO: configure button-->
         <button class="mrButton" mat-raised-button type="button" (click)="print()">
             Print
         </button>
