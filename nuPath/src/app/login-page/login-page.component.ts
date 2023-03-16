@@ -256,4 +256,13 @@ export class LoginPageComponent {
       this.errorMessage = 'Something went wrong, please try again';
     });
   }
+
+  doSomething() {
+    sessionStorage.setItem('isLoggedIn', 'true')
+    sessionStorage.setItem('currentUser', "ADMIN")
+    this.router.navigate(['/home'])
+          .then(() => {
+            window.location.reload();
+          })
+  }
 }

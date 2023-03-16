@@ -25,22 +25,45 @@ export class SocialsPageComponent implements OnInit{
       this.usernameArray.forEach((username) => {
         var newUser = new User(username,"","","");
 
-        /** 
+        
         // fetch displayName
-        fetch("http://35.188.8.151:80/LikedFoods?Username=" + this.username + "&LikedFoods=" + " ", {
-          method: "POST",
-          body: JSON.stringify({
-            username: this.username
-          })
+        fetch("http://35.188.8.151:80/ReturnDisplayName?Username=" + username + "&LikedFoods=" + " ", {
         })
-        .catch((error) => {
-          console.error('Error:', error);
-          this.errorMessage = 'Something went wrong, please try again';
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then((content) => {
+          newUser.displayName = content
         });
-        **/
+        
         // fetch email
+        fetch("http://35.188.8.151:80/ReturnContactInfo?Username=" + username + "&LikedFoods=" + " ", {
+        })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then((content) => {
+          newUser.email = content
+        });
 
         // fetch interests
+        fetch("http://35.188.8.151:80/ReturnInterests?Username=" + username + "&LikedFoods=" + " ", {
+        })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then((content) => {
+          newUser.interests = content
+        });
       })
     });
   }
