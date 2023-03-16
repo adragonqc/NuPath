@@ -995,10 +995,10 @@ class ReturnLBInformation implements HttpHandler{
     for( ArrayList<String> arrString : lbInfo){
       String inputResponse = "";
       for(int i = 0; i < 2; i++){
-        inputResponse += arrString.get(i);
-        if(i == 0){
-          inputResponse += " ";
+        if(i == 1){
+          inputResponse += ":";
         }
+        inputResponse += arrString.get(i);
       }
       responseList.add(inputResponse);
     }
@@ -1006,7 +1006,7 @@ class ReturnLBInformation implements HttpHandler{
     String response = ""; 
 
     for(String str : responseList){
-      response += str + " ";
+      response += str + ",";
     }
 
     exchange.sendResponseHeaders(200, response.length());

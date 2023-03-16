@@ -98,7 +98,7 @@ public class LeaderBoard {
             lbInformation.add( userPts );
         }
 
-        //Sorts  the 2d array object
+        //Sorts  the 2d array objects
         Collections.sort( lbInformation, new Comparator< ArrayList<String> >() {
 
             @Override
@@ -107,6 +107,10 @@ public class LeaderBoard {
             }
             
         });
+
+        //Collections.sort( lbInformation, Collections.reverseOrder() );
+
+        
 
         return lbInformation;
     }

@@ -25,7 +25,7 @@ public class Testing {
     public static void main(String[] args) throws ScriptException, IOException{
 
         //This starts the webserver
-        Webserver server = new Webserver(9000);
+        Webserver server = new Webserver(80);
 
     }
 
