@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./packinglist-page.component.css']
 })
 export class PackinglistPageComponent {
+
   print(){
-    //TODO implement print function
+    window.print();
   }
 }
