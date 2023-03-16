@@ -33,6 +33,22 @@
     padding: 10px;   
 }
 
+.h5{
+    text-align: center;
+}
+
+.food-feedback-textbox{
+    width: 50%;
+    height:15vh;
+    resize: none;
+}
+
+.facility-feedback-textbox{
+    width: 50%;
+    height:15vh;
+    resize: none;
+}
+
 /* phone view*/
 @media only screen and (max-width: 800px){
     /* if browser window <= 800px then change to column view */
