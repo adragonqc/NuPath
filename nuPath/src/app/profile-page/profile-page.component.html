@@ -15,7 +15,7 @@
     </h2>
     <button *ngIf="editingDisplayName && this.username == this.currentUser" class="save-button" (click)="saveDisplayName()">Save</button>
     <button *ngIf="editingDisplayName && this.username == this.currentUser" class="cancel-button" (click)="cancelDisplayName()">Cancel</button>
-    <p class="contact-information">Email: {{ contactInformation }}</p>
+    <p class="contact-information">Email: <a href="mailto: {{contactInformation}}"> {{ contactInformation }}</a></p>
     <h3>Interests
       <button *ngIf="!editingInterests && this.username == this.currentUser" class="edit-button" (click)="editInterests()">Edit</button>
       <button *ngIf="editingInterests && this.username == this.currentUser" class="save-button" (click)="saveInterests()">Save</button>
