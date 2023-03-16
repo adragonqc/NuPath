@@ -2,6 +2,9 @@
     refs:
     https://www.w3schools.com/css/css3_flexbox_container.asp
 */
+a:link {
+    color: white;
+}
 
 footer{
     background-color: var(--blue);
