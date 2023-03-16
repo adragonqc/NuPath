@@ -22,12 +22,14 @@ export class SocialsPageComponent implements OnInit{
     })
     .then((content) => {
       this.usernameArray = content.split(", ");
+      this.usernameArray.pop()
       this.usernameArray.forEach((username) => {
+        console.log(username)
         var newUser = new User(username,"","","");
 
         
         // fetch displayName
-        fetch("http://35.188.8.151:80/ReturnDisplayName?Username=" + username + "&LikedFoods=" + " ", {
+        fetch("http://35.188.8.151:80/ReturnDisplayName?Username=" + username, {
         })
         .then((response) => {
           if (!response.ok) {
@@ -40,7 +42,7 @@ export class SocialsPageComponent implements OnInit{
         });
         
         // fetch email
-        fetch("http://35.188.8.151:80/ReturnContactInfo?Username=" + username + "&LikedFoods=" + " ", {
+        fetch("http://35.188.8.151:80/ReturnContactInfo?Username=" + username, {
         })
         .then((response) => {
           if (!response.ok) {
@@ -53,7 +55,7 @@ export class SocialsPageComponent implements OnInit{
         });
 
         // fetch interests
-        fetch("http://35.188.8.151:80/ReturnInterests?Username=" + username + "&LikedFoods=" + " ", {
+        fetch("http://35.188.8.151:80/ReturnInterests?Username=" + username, {
         })
         .then((response) => {
           if (!response.ok) {
@@ -63,6 +65,7 @@ export class SocialsPageComponent implements OnInit{
         })
         .then((content) => {
           newUser.interests = content
+          this.userArray.push(newUser)
         });
       })
     });
