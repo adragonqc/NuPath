@@ -26,4 +26,8 @@ export class LeaderboardPageComponent implements OnInit{
     });
 
   }
+
+  refreshLeaderboard() {
+    fetch("http://35.188.8.151:80/UpdateLeaderboard")
+  }
 }
