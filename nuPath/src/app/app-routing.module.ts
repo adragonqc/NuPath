@@ -19,6 +19,7 @@ import { AuthGuard } from './auth.guard';
 import { LoginGuard } from './login.guard';
 
 import { ForumComponent } from './forum/forum.component';
+import { NewPostComponent } from './new-post/new-post.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'facilities', component: FacilitiesPageComponent, canActivate: [AuthGuard] /*outlet: "nulife-contents"*/},
 
   { path: 'forum', component: ForumComponent, canActivate: [AuthGuard] },
+  { path: 'newPost', component: NewPostComponent, canActivate: [AuthGuard] },
 
   { path: '**', component: PageNotFoundComponent }  //always keep at end
   

@@ -1,0 +1,38 @@
+/*
+  New Post page CSS
+  author: Sydney Silverman
+*/
+
+/* make width 95% smaller than container's width, center */
+.nested{
+  width: 95%;
+  margin: 0px auto 0px auto; /* top right bottom left */
+}
+
+/* make width 75% of container's width, center */
+.centered-block{
+  width: 75%;
+  margin: 0px auto 0px auto;  /* top right bottom left */
+}
+
+/*
+  display on it's own line, 
+  set width to 100% of container's width, 
+  center within container, 
+  add 5pixel margins above and below
+*/
+input, textarea{
+  display: block;
+  width: 100%;
+  margin: 5px auto 5px auto;  /* top right bottom left */
+}
+
+/* make textarea 75 pixels tall */
+textarea{
+  height: 75px;
+}
+
+/* add 5 pixel margins above, below, and to the right */
+.button{
+  margin: 5px 5px 5px 0px;  /* top right bottom left */
+}

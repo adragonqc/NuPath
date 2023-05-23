@@ -1,0 +1,37 @@
+<!--
+  New Post page HTML
+  author: Sydney Silverman
+-->
+
+<!-- slightly increase margin size of page content -->
+<div class="nested">
+
+  <h1>New Post</h1>
+  
+  <!--
+    display form contents within a block
+    center block on page with large margins
+  -->
+  <form name="newPost" class="centered-block">
+
+    <!-- input for author's name, required -->
+    <input id="NAME" name="name" placeholder="Name" required>
+
+    <!-- input for post content, required -->
+    <textarea id="CONTENT" name="content" required></textarea>
+
+
+    <!-- button container -->
+    <div>
+
+      <!-- submit button, post content and return to forum page -->
+      <a mat-raised-button routerLink="/forum" class="button" color="primary" (click)="post()">Submit</a>
+
+      <!-- cancel button, return to forum page -->
+      <a mat-raised-button routerLink="/forum" class="button" color="warn">Cancel</a>
+
+    </div>
+
+  </form>
+  
+</div>

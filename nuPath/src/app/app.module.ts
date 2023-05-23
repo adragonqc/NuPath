@@ -29,6 +29,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthGuard } from './auth.guard';
+import { NewPostComponent } from './new-post/new-post.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { AuthGuard } from './auth.guard';
     ForumComponent,
     RegisterPageComponent,
     LogoutComponent,
+    NewPostComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,8 @@
+/**
+ * New Post page TypeScript
+ * @author Sydney Silverman
+*/
+
 import { Component } from '@angular/core';
 
 @Component({
@@ -18,4 +23,11 @@ export class ForumComponent {
     this.displayName = '';
     this.message = '';
   }
+}
+
+export class Post {
+  displayName = '';
+  message = '';
+  posts: { displayName: string, message: string }[] = [];
+
 }

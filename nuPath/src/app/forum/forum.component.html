@@ -1,3 +1,9 @@
+<!--
+  Forum page HTML
+  author: Sydney Silverman
+-->
+
+<!--
 <form (submit)="onSubmit()">
     <div>
       <label for="display-name">Display Name:</label>
@@ -14,4 +20,18 @@
     <h3>{{ post.displayName }}</h3>
     <p>{{ post.message }}</p>
   </div>
+-->
+<div class="nested">
+
+  <div class="spaced-row">
+    <h1>Forum</h1>
+    <a mat-raised-button routerLink="/newPost" color="primary">Post</a>
+  </div>
+
+  <div id="post-container" class="nested">
+    <div *ngFor="">
+
+    </div>
+  </div>
   
+</div>

@@ -1,0 +1,19 @@
+/*
+  Forum page CSS
+  author: Sydney Silverman
+*/
+
+/* make width 95% smaller than container's width, center */
+.nested{
+  width: 95%;
+  margin: 0px auto 0px auto;  /* top right bottom left */
+}
+
+/* display content in a row where items are evenly spaced */
+.spaced-row{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  justify-content: space-between;
+}
