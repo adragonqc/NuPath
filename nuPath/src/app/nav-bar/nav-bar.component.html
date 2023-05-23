@@ -19,6 +19,8 @@
     <li *ngIf="isLoggedIn" class="nav-item"><a routerLink="/catalyst" routerLinkActive="selected">Catalyst</a></li>
     <li *ngIf="isLoggedIn" class="nav-item"><a routerLink="/calendar" routerLinkActive="selected">Calendar</a></li>
 
+    <li *ngIf="isLoggedIn" class="nav-item"><a routerLink="/forum" routerLinkActive="selected">Forum</a></li>
+
     <li *ngIf="isLoggedIn" class="nav-item" style="float:right;"><a routerLink="/logout" routerLinkActive="selected">Logout</a></li>
     <li *ngIf="isLoggedIn" class="nav-item" style="float:right;"><a [routerLink]="'/profile/' + currentUser" routerLinkActive="selected">Profile</a></li>
 

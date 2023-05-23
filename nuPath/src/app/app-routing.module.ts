@@ -18,6 +18,8 @@ import { LogoutComponent } from './logout/logout.component';
 import { AuthGuard } from './auth.guard';
 import { LoginGuard } from './login.guard';
 
+import { ForumComponent } from './forum/forum.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
   { path: 'home', component: HomePageComponent, canActivate: [AuthGuard]},
@@ -39,6 +41,9 @@ const routes: Routes = [
   { path: 'dorms', component: DormPageComponent, canActivate: [AuthGuard] /*outlet: "nulife-contents"*/},
   { path: 'packinglist', component: PackinglistPageComponent, canActivate: [AuthGuard] /*outlet: "nulife-contents"*/},
   { path: 'facilities', component: FacilitiesPageComponent, canActivate: [AuthGuard] /*outlet: "nulife-contents"*/},
+
+  { path: 'forum', component: ForumComponent, canActivate: [AuthGuard] },
+
   { path: '**', component: PageNotFoundComponent }  //always keep at end
   
 ];
