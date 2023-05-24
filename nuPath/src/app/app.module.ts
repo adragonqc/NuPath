@@ -32,6 +32,14 @@ import { AuthGuard } from './auth.guard';
 import { NewPostComponent } from './new-post/new-post.component';
 
 
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +76,14 @@ import { NewPostComponent } from './new-post/new-post.component';
     MatButtonModule,
     NgxFileDropModule,
     HttpClientModule,
+    NgxsModule.forRoot([AppState, SettingsState, UserState], {
+      developmentMode: !environment.production
+    }),
+    NgxsFormPluginModule.forRoot(),
+    NgxsStoragePluginModule.forRoot({ key: 'settings' }),
+    NgxsResetPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
+    NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
