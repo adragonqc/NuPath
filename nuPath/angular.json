@@ -93,6 +93,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "nuPath:build:production",
+            "firebaseProject": "nupath-7d671",
+            "firebaseHostingSite": "nupath-7d671"
+          }
         }
       }
     }

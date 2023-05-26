@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "nupath-7d671": {
+      "hosting": {
+        "nuPath": [
+          "nupath-7d671"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "nupath-7d671"
+  }
+}
