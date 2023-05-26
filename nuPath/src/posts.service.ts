@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   PostResponse,
-} from 'src/app/models/post-response.interface';
+} from 'src/app/models/post-response.interface';//change
 
 @Injectable()
 export class PostsService {
