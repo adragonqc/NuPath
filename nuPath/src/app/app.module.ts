@@ -23,13 +23,16 @@ import { DormPageComponent } from './dorm-page/dorm-page.component';
 import { FacilitiesPageComponent } from './facilities-page/facilities-page.component';
 import { FooterComponent } from './footer/footer.component';
 import { PackinglistPageComponent } from './packinglist-page/packinglist-page.component';
-import { ForumComponent } from './forum/forum.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthGuard } from './auth.guard';
+
+import { ForumComponent } from './forum/forum.component';
 import { NewPostComponent } from './new-post/new-post.component';
+
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';    //installed @ngxs
@@ -88,6 +91,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     MatButtonModule,
     NgxFileDropModule,
     HttpClientModule,
+
+    MatDialogModule,
 
     //TODO fix
     /*
