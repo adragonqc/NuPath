@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { from } from 'rxjs';
 
-import { Language } from 'src/app/models/language.type';
+// import { Language } from 'src/app/models/language.type';
 import { Post } from 'src/app/models/post.interface';
 
 @Injectable()
 export class AddPostService {
   constructor(private firestore: AngularFirestore) {}
 
-  savePost(title: string, message: string, uuid: string, language: Language) {
+  savePost(title: string, message: string, uuid: string,) {
     const post: Post = {
       title,
       message,
