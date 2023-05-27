@@ -32,16 +32,23 @@ import { AuthGuard } from './auth.guard';
 import { NewPostComponent } from './new-post/new-post.component';
 
 
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';    //installed @ngxs
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
 
-import { environment } from 'src/environments/environment';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+//import { AppState } from './store/app.state';                           //referenced import from example, we don't have a store folder/module
+//import { SettingsState } from './store/settings/settings.state';
+//import { UserState } from './store/user/user.state';
+
+//import { environment } from 'src/environments/environment';             //we don't have an environment folder/module
+
+import { AngularFireModule } from '@angular/fire/compat';                     //referenced import from example
+import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
 
 
 
@@ -81,6 +88,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     MatButtonModule,
     NgxFileDropModule,
     HttpClientModule,
+
+    /*
     NgxsModule.forRoot([AppState, SettingsState, UserState], {
       developmentMode: !environment.production
     }),
@@ -89,6 +98,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     NgxsResetPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
     NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
+    */
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
