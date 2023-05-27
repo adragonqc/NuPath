@@ -89,6 +89,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     NgxFileDropModule,
     HttpClientModule,
 
+    //TODO fix
     /*
     NgxsModule.forRoot([AppState, SettingsState, UserState], {
       developmentMode: !environment.production
